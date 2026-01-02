@@ -1,0 +1,95 @@
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+        "padding": {
+            "top": 1
+        }
+    },
+    "modules": [
+        {
+            "type": "custom",
+            "format": "\u001b[36m    HardWare"
+        },
+        {
+            "type": "custom",
+            "format": "┌──────────────────────────────────────────┐"
+        },
+        {
+            "type": "cpu",
+            "format": "{1}",
+            "key": "   CPU"
+        },
+        {
+            "type": "gpu",
+            "format": "{2}",
+            "key": "   GPU"
+        },
+        {
+            "type": "memory",
+            "key": "   Memory"
+        },
+        {
+            "type": "disk",
+            "key": "  󰨣 Disk"
+        },
+        {
+            "type": "display",
+            "key": "  󰹑 Display"
+        },
+        {
+            "type": "custom",
+            "format": "└──────────────────────────────────────────┘"
+        },
+        "break",
+        {
+            "type": "custom",
+            "format": "\u001b[36m    SoftWare"
+        },
+        {
+            "type": "custom",
+            "format": "┌──────────────────────────────────────────┐"
+        },
+        {
+            "type": "os",
+            "key": "  󰣇 OS"
+        },
+        {
+            "type": "kernel",
+            "key": "   Kernel"
+        },
+        {
+            "type": "packages",
+            "key": "   Packages"
+        },
+        {
+            "type": "lm",
+            "key": "  󰍂 LM"
+        },
+        {
+            "type": "wm",
+            "key": "   WM"
+        },
+        {
+            "type": "terminal",
+            "key": "   Terminal"
+        },
+        {
+            "type": "shell",
+            "key": "   Shell"
+        },
+        {
+            "type": "editor",
+            "key": "   Editor"
+        },
+        {
+            "type": "custom",
+            "format": "└──────────────────────────────────────────┘"
+        },
+        {
+            "type": "colors",
+            "paddingLeft": 2,
+            "symbol": "circle"
+        },
+        "break"
+    ]
+}
