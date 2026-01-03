@@ -7,8 +7,8 @@
 
     // Choose the order of the modules
     "modules-left": [
-        "hyprland/workspaces",
-        "hyprland/window"
+        "ext/workspaces",
+        "dwl/window"
     ],
     "modules-center": [
         "clock"

@@ -8,6 +8,7 @@ let
     fastfetch = "fastfetch";
     mango = "mango";
     nvim = "nvim";
+		rofi = "rofi";
     waybar = "waybar";
   };
 in
