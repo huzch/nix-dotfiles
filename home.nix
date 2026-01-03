@@ -7,6 +7,7 @@ let
   configs = {
     color = "color";
     fastfetch = "fastfetch";
+    mango = "mango";
     nvim = "nvim";
     waybar = "waybar";
     rofi = "rofi";
@@ -20,6 +21,13 @@ in
   home.stateVersion = "25.05";
 
   home.packages = with pkgs; [
+		xdg-desktop-portal-wlr
+		wlsunset
+		wlogout
+		wl-clip-persist
+		wl-clipboard
+		wlopm
+		wlr-randr
     waybar
     rofi
     swww
