@@ -4,7 +4,7 @@
 set +e
 
 # obs
-dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots >/dev/null 2>&1
+# dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots >/dev/null 2>&1
 
 # notify
 swaync -c ~/.config/mango/swaync/config.jsonc -s ~/.config/mango/swaync/style.css >/dev/null 2>&1 &
@@ -13,7 +13,7 @@ swaync -c ~/.config/mango/swaync/config.jsonc -s ~/.config/mango/swaync/style.cs
 wlsunset -T 3501 -t 3500 >/dev/null 2>&1 &
 
 # wallpaper
-swaybg -i ~/.config/mango/wallpaper/czd.png >/dev/null 2>&1 &
+swaybg -i ~/wallpapers/forrest.png >/dev/null 2>&1 &
 
 # top bar
 waybar -c ~/.config/mango/waybar/config.jsonc -s ~/.config/mango/waybar/style.css >/dev/null 2>&1 &
