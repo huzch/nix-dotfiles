@@ -7,7 +7,6 @@ let
   configs = {
     color = "color";
     fastfetch = "fastfetch";
-    hypr = "hypr";
     nvim = "nvim";
     waybar = "waybar";
     rofi = "rofi";

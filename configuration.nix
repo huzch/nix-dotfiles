@@ -70,11 +70,6 @@
   };
 
   # 图形环境
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-    withUWSM = true;
-  };
   hardware.graphics = {
     enable = true;
   };

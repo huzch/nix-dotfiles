@@ -1,5 +1,5 @@
 {
-  description = "NixOS with Hyprland";
+  description = "NixOS with Mango";
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
