@@ -25,34 +25,34 @@ return {
 		end
 	},
 
-	{
-		'nvim-treesitter/nvim-treesitter',
-		build = ':TSUpdate',
-		event = "VeryLazy",
-		config = function()
-			require('nvim-treesitter.configs').setup({
-				ensure_installed = { 'cpp', 'lua', 'markdown' },
-				highlight = {
-					enable = true,
-					additional_vim_regex_highlighting = true,
-				},
-
-				-- 增量选择
-				incremental_selection = {
-					enable = true,
-					keymaps = {
-						init_selection = "<CR>",
-						node_incremental = "<CR>",
-						node_decremental = "<BS>",
-					},
-				},
-
-				indent = {
-					enable = true,
-				},
-			})
-		end
-	},
+	-- {
+	-- 	'nvim-treesitter/nvim-treesitter',
+	-- 	build = ':TSUpdate',
+	-- 	event = "VeryLazy",
+	-- 	config = function()
+	-- 		require('nvim-treesitter.configs').setup({
+	-- 			ensure_installed = { 'cpp', 'lua', 'markdown' },
+	-- 			highlight = {
+	-- 				enable = true,
+	-- 				additional_vim_regex_highlighting = true,
+	-- 			},
+	--
+	-- 			-- 增量选择
+	-- 			incremental_selection = {
+	-- 				enable = true,
+	-- 				keymaps = {
+	-- 					init_selection = "<CR>",
+	-- 					node_incremental = "<CR>",
+	-- 					node_decremental = "<BS>",
+	-- 				},
+	-- 			},
+	--
+	-- 			indent = {
+	-- 				enable = true,
+	-- 			},
+	-- 		})
+	-- 	end
+	-- },
 
 	-- {
 	-- 	'iamcco/markdown-preview.nvim',

@@ -26,6 +26,10 @@ in
     yazi
     lazygit
     fastfetch
+		go-musicfox
+		pwvucontrol
+		networkmanagerapplet
+		brave
   ];
 
   home.sessionVariables = {
@@ -46,7 +50,7 @@ in
     themeFile = "Catppuccin-Macchiato";
     font = {
       name = "Hack Nerd Font";
-      size = 12;
+      size = 18;
     };
     settings = {
       background_opacity = "0.8";
