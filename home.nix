@@ -9,6 +9,7 @@ let
     fastfetch = "fastfetch";
     mango = "mango";
     nvim = "nvim";
+		rofi = "rofi";
     waybar = "waybar";
     rofi = "rofi";
     swaync = "swaync";
