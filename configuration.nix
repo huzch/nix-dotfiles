@@ -44,10 +44,6 @@
   };
 
   # 图形环境
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-  };
   hardware.graphics = {
     enable = true;
     # enable32Bit = true;

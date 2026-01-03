@@ -6,7 +6,6 @@ let
 
   configs = {
     fastfetch = "fastfetch";
-    hypr = "hypr";
     nvim = "nvim";
     waybar = "waybar";
   };
@@ -19,8 +18,6 @@ in
   home.packages = with pkgs; [
     waybar
     rofi
-    hyprpaper
-    hypridle
     swaynotificationcenter
     neovim
     yazi
@@ -45,16 +42,18 @@ in
     };
   };
 
-  programs.kitty = {
+  programs.foot = {
     enable = true;
-    themeFile = "Catppuccin-Macchiato";
-    font = {
-      name = "Hack Nerd Font";
-      size = 18;
-    };
+    server.enable = true;
     settings = {
-      background_opacity = "0.8";
-    };
+      main = {
+        font = "Hack Nerd Font:size=18";
+        pad = "10x10 center";
+      };
+      colors = {
+        alpha = 0.8;
+      };
+    }
   };
 
   programs.zsh = {
@@ -92,7 +91,7 @@ in
 
     profileExtra = ''
       if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
-        exec Hyprland
+        exec mango
       fi
     '';
   };
