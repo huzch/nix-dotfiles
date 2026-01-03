@@ -6,6 +6,7 @@ let
 
   configs = {
     fastfetch = "fastfetch";
+    mango = "mango";
     nvim = "nvim";
     waybar = "waybar";
   };
@@ -16,9 +17,21 @@ in
   home.stateVersion = "25.05";
 
   home.packages = with pkgs; [
+		xdg-desktop-portal-wlr
+		wlsunset
+		wlogout
+		wl-clip-persist
+		wl-clipboard
+		wlopm
+		wlr-randr
     waybar
     rofi
     swaynotificationcenter
+		swaybg
+		swayosd
+		swaylock
+		swayidle
+		sway-audio-idle-inhibit
     neovim
     yazi
     lazygit
@@ -53,7 +66,7 @@ in
       colors = {
         alpha = 0.8;
       };
-    }
+    };
   };
 
   programs.zsh = {
