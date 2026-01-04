@@ -22,13 +22,7 @@ in
   home.stateVersion = "25.05";
 
   home.packages = with pkgs; [
-		xdg-desktop-portal-wlr
-		wlsunset
 		wlogout
-		wl-clip-persist
-		wl-clipboard
-		wlopm
-		wlr-randr
     waybar
     rofi
     swww
