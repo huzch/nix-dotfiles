@@ -22,7 +22,7 @@
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            users.huzch = import ./home.nix;
+            # users.huzch = import ./home.nix;
             backupFileExtension = "backup";
           };
         }
