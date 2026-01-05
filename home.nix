@@ -41,10 +41,11 @@ in
 
   programs.git = {
     enable = true;
-    settings.user = {
-      name = "huzch";
-      email = "huzch123@gmail.com";
+    extraConfig = {
+      pull.rebase = false;
     };
+    userName = "huzch";
+    userEmail = "huzch123@gmail.com";
   };
 
   programs.kitty = {
