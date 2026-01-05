@@ -21,6 +21,7 @@ in
     rofi
     swww
     hypridle
+    hyprlock
     swaynotificationcenter
     neovim
     yazi
