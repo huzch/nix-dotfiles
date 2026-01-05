@@ -19,7 +19,7 @@ in
   home.packages = with pkgs; [
     waybar
     rofi
-    hyprpaper
+    swww
     hypridle
     swaynotificationcenter
     neovim
