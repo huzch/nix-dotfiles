@@ -51,8 +51,10 @@
   };
   hardware.graphics = {
     enable = true;
-    # enable32Bit = true;
   };
+  
+  # VMware 工具支持
+  virtualisation.vmware.guest.enable = true;
 
   # 用户
   programs.zsh.enable = true;
