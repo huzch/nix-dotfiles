@@ -9,6 +9,7 @@ let
     hypr = "hypr";
     nvim = "nvim";
     waybar = "waybar";
+    rofi = "rofi";
   };
 in
 {
