@@ -27,12 +27,18 @@ NEXT_INDEX=$(( (CURRENT_INDEX + 1) % ${#WALLPAPERS[@]} ))
 # 获取下一张壁纸路径
 NEXT_WALLPAPER="${WALLPAPERS[$NEXT_INDEX]}"
 
-# 使用 swww 设置壁纸
-swww img "$NEXT_WALLPAPER" --transition-type wipe --transition-fps 60
+# 定义可用的过渡效果
+TRANSITIONS=("simple" "fade" "left" "right" "top" "bottom" "wipe" "wave" "grow" "center" "outer")
+
+# 随机选择一个过渡效果
+RANDOM_TRANSITION=${TRANSITIONS[$RANDOM % ${#TRANSITIONS[@]}]}
+
+# 使用 swww 设置壁纸，使用随机过渡效果
+swww img "$NEXT_WALLPAPER" --transition-type "$RANDOM_TRANSITION" --transition-fps 60
 
 # 保存新的索引
 echo "$NEXT_INDEX" > "$STATE_FILE"
 
 # 发送通知
 WALLPAPER_NAME=$(basename "$NEXT_WALLPAPER")
-notify-send "壁纸已切换" "$WALLPAPER_NAME" -t 2000
+notify-send -a "壁纸切换" "壁纸已切换" "$WALLPAPER_NAME (效果: $RANDOM_TRANSITION)" -t 3000

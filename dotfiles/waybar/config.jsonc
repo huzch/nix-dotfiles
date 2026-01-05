@@ -5,6 +5,7 @@
     // "width": 1280, // Waybar width
     "spacing": 4, // Gaps between modules (4px)
     "modules-left": [
+        "tray",
         "clock"
     ],
     "modules-center": [
@@ -12,12 +13,11 @@
     ],
     "modules-right": [
         "cpu",
-        "custom/gpu",
+        // "custom/gpu",
         "memory",
-        "battery",
+        // "battery",
         "pulseaudio",
-        "network",
-        "tray"
+        "network"
     ],
     "hyprland/workspaces": {
         "format": "{id}",
