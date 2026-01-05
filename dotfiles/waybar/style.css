@@ -1,3 +1,6 @@
+/* 导入 Catppuccin 配色方案 */
+@import "color.css";
+
 * {
     border: none;
     border-radius: 5px;
@@ -9,7 +12,7 @@
 window#waybar {
     background-color: transparent;
     border-bottom: 0px solid rgba(100, 114, 125, 0.5);
-    color: #ffffff;
+    color: var(--text-primary);
     transition-property: background-color;
     transition-duration: .5s;
 }
@@ -26,23 +29,23 @@ button {
 
 button:hover {
     background: inherit;
-    box-shadow: inset 0 -3px #ffffff;
+    box-shadow: inset 0 -3px var(--text-primary);
 }
 
 #custom-gpu:hover {
-    background-color: #a37800;
+    background-color: var(--color-orange);
 }
 
 #pulseaudio:hover {
-    background-color: #a37800;
+    background-color: var(--color-green);
 }
 
 #network:hover {
-    background-color: #a37800;
+    background-color: var(--color-cyan);
 }
 
 #workspaces button {
-    color: #bbbbbb; /* 默认状态灰色 */
+    color: var(--text-secondary);
     background: transparent;
     border: none;
     padding: 5px 8px;
@@ -51,62 +54,62 @@ button:hover {
 }
 
 #workspaces button.active {
-    color: white; /* 高亮当前 workspace */
-    background: rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
+    background: var(--bg-active);
     font-weight: bold;
 }
 
 #clock {
-    background: rgba(26, 27, 38, 0.95);
-    color: white;
+    background: var(--bg-primary);
+    color: var(--text-primary);
     padding: 5px 10px;
     border-radius: 5px;
 }
 
 #cpu {
-    background: rgba(26, 27, 38, 0.95);
-    color: #FF5555; /* 红 */
+    background: var(--bg-primary);
+    color: var(--color-red);
     padding: 5px 10px;
     border-radius: 5px;
 }
 
 #custom-gpu {
-    background: rgba(26, 27, 38, 0.95);
-    color: #C0C0C0;
+    background: var(--bg-primary);
+    color: var(--color-gray);
     padding: 5px 10px;
     border-radius: 5px;
 }
 
 #memory {
-    background: rgba(26, 27, 38, 0.95);
-    color: #FFAA33; /* 橙 */
+    background: var(--bg-primary);
+    color: var(--color-orange);
     padding: 5px 10px;
     border-radius: 5px;
 }
 
 #battery {
-    background: rgba(26, 27, 38, 0.95);
-    color: #FFFF55; /* 黄 */
+    background: var(--bg-primary);
+    color: var(--color-yellow);
     padding: 5px 10px;
     border-radius: 5px;
 }
 
 #pulseaudio {
-    background: rgba(26, 27, 38, 0.95);
-    color: #55AA55; /* 绿 */
+    background: var(--bg-primary);
+    color: var(--color-green);
     padding: 5px 10px;
     border-radius: 5px;
 }
 
 #network {
-    background: rgba(26, 27, 38, 0.95);
-    color: #56B6C2; /* 蓝 */
+    background: var(--bg-primary);
+    color: var(--color-cyan);
     padding: 5px 10px;
     border-radius: 5px;
 }
 
 #tray {
-    background: rgba(26, 27, 38, 0.95);
+    background: var(--bg-primary);
     padding: 5px 10px;
     border-radius: 5px;
 }

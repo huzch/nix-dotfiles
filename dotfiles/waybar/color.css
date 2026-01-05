@@ -1,0 +1,36 @@
+/* Catppuccin Mocha - 深色主题 */
+:root {
+    --bg-primary: rgba(30, 30, 46, 0.95);      /* base */
+    --bg-secondary: rgba(49, 50, 68, 0.95);    /* surface0 */
+    --bg-active: rgba(116, 199, 236, 0.3);     /* sky with transparency */
+    --text-primary: #cdd6f4;                   /* text */
+    --text-secondary: #a6adc8;                 /* subtext0 */
+    
+    /* 模块颜色 */
+    --color-red: #f38ba8;                      /* red */
+    --color-orange: #fab387;                   /* peach */
+    --color-yellow: #f9e2af;                   /* yellow */
+    --color-green: #a6e3a1;                    /* green */
+    --color-blue: #89b4fa;                     /* blue */
+    --color-cyan: #94e2d5;                     /* teal */
+    --color-gray: #bac2de;                     /* overlay2 */
+}
+
+/* Catppuccin Latte - 浅色主题（注释掉，需要时取消注释并注释掉深色主题） */
+/*
+:root {
+    --bg-primary: rgba(239, 241, 245, 0.95);   
+    --bg-secondary: rgba(220, 224, 232, 0.95);  
+    --bg-active: rgba(4, 165, 229, 0.3);        
+    --text-primary: #4c4f69;                    
+    --text-secondary: #6c6f85;                  
+    
+    --color-red: #d20f39;                       
+    --color-orange: #fe640b;                    
+    --color-yellow: #df8e1d;                    
+    --color-green: #40a02b;                     
+    --color-blue: #1e66f5;                      
+    --color-cyan: #179299;                      
+    --color-gray: #7c7f93;                      
+}
+*/
