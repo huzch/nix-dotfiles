@@ -5,6 +5,7 @@
 ```bash
 git clone https://github.com/huzch/nix-dotfiles.git
 cd nix-dotfiles
+vim flake.nix ## comment users.huzch = import ./home.nix;
 sudo ./init.sh
 ```
 ### 2. NixOS
@@ -13,7 +14,6 @@ git clone https://github.com/huzch/wallpapers.git
 git clone https://github.com/huzch/nix-dotfiles.git
 
 cd nix-dotfiles
-vim flake.nix ## uncomment users.huzch = import ./home.nix;
 cp /etc/nixos/hardware-configuration.nix .
 sudo git add . ## flake only see added or committed
 
