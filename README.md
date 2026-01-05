@@ -8,6 +8,7 @@ cd nix-dotfiles
 vim flake.nix ## comment users.huzch = import ./home.nix;
 sudo ./init.sh
 ```
+NOTE: before execute init.sh, please check username, hostname, disk-type on your own !!!
 ### 2. NixOS
 ```bash
 git clone https://github.com/huzch/wallpapers.git
@@ -21,9 +22,9 @@ sudo nixos-rebuild switch --flake ~/nix-dotfiles#space
 ```
 
 ## TODO
-- [ ] Wallpaper: swww
-- [ ] Status Bar: waybar
-- [ ] App Launcher: rofi
+- [x] Wallpaper: swww
+- [x] Status Bar: waybar
+- [x] App Launcher: rofi
 - [ ] Clipboard Manager
 - [ ] Lock Screen: hyprlock
 - [ ] Logout Menu: wlogout

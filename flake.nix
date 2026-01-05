@@ -11,14 +11,9 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
   };
 
-  outputs = { self, nixpkgs, home-manager, disko, hyprland-plugins, ... }: {
+  outputs = { self, nixpkgs, home-manager, disko, ... }: {
     nixosConfigurations.space = nixpkgs.lib.nixosSystem {
       system = "aarch64-linux";
       modules = [
@@ -29,7 +24,6 @@
             useUserPackages = true;
             users.huzch = import ./home.nix;
             backupFileExtension = "backup";
-            extraSpecialArgs = { inherit hyprland-plugins; };
           };
         }
         disko.nixosModules.disko

@@ -1,4 +1,4 @@
-{ config, pkgs, hyprland-plugins, ... }:
+{ config, pkgs, ... }:
 
 let
   dotfiles = "${config.home.homeDirectory}/nix-dotfiles/dotfiles";
@@ -41,7 +41,7 @@ in
 
   programs.git = {
     enable = true;
-    settings = {
+    settings.user = {
       name = "huzch";
       email = "huzch123@gmail.com";
     };
@@ -102,13 +102,6 @@ in
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
-  };
-
-  wayland.windowManager.hyprland = {
-    enable = true;
-    plugins = [
-      hyprland-plugins.packages.${pkgs.system}.hyprscrolling
-    ];
   };
 
   # 配置文件链接
