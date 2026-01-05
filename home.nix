@@ -7,7 +7,7 @@ let
   configs = {
     color = "color";
     fastfetch = "fastfetch";
-    hypr = "hypr";
+    niri = "niri";
     nvim = "nvim";
     waybar = "waybar";
     rofi = "rofi";
@@ -83,7 +83,6 @@ in
     shellAliases = {
       c = "clear";
       ll = "ls -l";
-      la = "ls -la";
       lg = "lazygit";
       ff = "fastfetch";
       vim = "nvim";
