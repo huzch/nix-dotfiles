@@ -4,30 +4,26 @@
     // "height": 31, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
     "spacing": 4, // Gaps between modules (4px)
-
-    // Choose the order of the modules
     "modules-left": [
-        "hyprland/workspaces",
-        "hyprland/window"
+        "clock"
     ],
     "modules-center": [
-        "clock"
+        "hyprland/workspaces"
     ],
     "modules-right": [
         "cpu",
-		"custom/gpu",
+        "custom/gpu",
         "memory",
         "battery",
         "pulseaudio",
         "network",
         "tray"
     ],
-    // Modules configuration
-	"hyprland/workspaces": {
-		"format": "{id}",
-		"on-click": "hyprctl dispatch workspace {id}",
-		"on-scroll-up": "hyprctl dispatch workspace e+1",
-		"on-scroll-down": "hyprctl dispatch workspace e-1"
+    "hyprland/workspaces": {
+        "format": "{id}",
+        "on-click": "hyprctl dispatch workspace {id}",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1"
     },
     "clock": {
         // "timezone": "America/New_York",
@@ -38,28 +34,25 @@
         "format": " {usage}%",
         "tooltip": false
     },
-	"custom/gpu": {
-		"format": "󰾲 {}%",
-		"on-click": "gpu-viewer",
-		"exec": "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits"
-	},
+    "custom/gpu": {
+        "format": "󰾲 {}%",
+        "on-click": "gpu-viewer",
+        "exec": "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits"
+    },
     "memory": {
         "format": " {}%"
     },
     "battery": {
-        "states": {
-            // "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
         "format": "{icon} {capacity}%",
         "format-full": "{icon}",
         "format-charging": "{capacity}%",
-        "format-plugged": "{capacity}%",
-        "format-alt": "{icon} {time}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
@@ -76,12 +69,15 @@
             "phone": "",
             "portable": "",
             "car": "",
-            "default": ["", "", ""]
+            "default": [
+                "",
+                "",
+                ""
+            ]
         },
         "on-click": "pwvucontrol"
     },
     "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": " {essid}",
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
