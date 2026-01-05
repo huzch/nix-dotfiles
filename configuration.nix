@@ -52,9 +52,6 @@
   hardware.graphics = {
     enable = true;
   };
-  
-  # VMware 工具支持
-  virtualisation.vmware.guest.enable = true;
 
   # 用户
   programs.zsh.enable = true;

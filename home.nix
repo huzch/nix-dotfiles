@@ -47,15 +47,16 @@ in
     };
   };
 
-  programs.kitty = {
+  programs.foot = {
     enable = true;
-    themeFile = "Catppuccin-Macchiato";
-    font = {
-      name = "Hack Nerd Font";
-      size = 18;
-    };
     settings = {
-      background_opacity = "0.8";
+      main = {
+        font = "Hack Nerd Font:size=20";
+        pad = "10x10 center";
+      };
+      colors = {
+        alpha = 0.8;
+      };
     };
   };
 
