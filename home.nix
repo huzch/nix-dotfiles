@@ -102,7 +102,7 @@ in
     '';
 
     profileExtra = ''
-      if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
+      if uwsm check may-start; then
         exec uwsm start default
       fi
     '';
