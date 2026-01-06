@@ -28,6 +28,6 @@ sudo nixos-rebuild switch --flake ~/nix-dotfiles#space
 - [ ] Clipboard Manager
 - [ ] Lock Screen: hyprlock
 - [ ] Logout Menu: wlogout
-- [ ] Polkit
-- [ ] Idle Daemon: hypridle
-- [ ] Notification Daemon: swaync
+- [x] Polkit: hyprpolkitagent
+- [x] Idle Daemon: hypridle
+- [x] Notification Daemon: swaync

@@ -35,7 +35,6 @@ in
 		pwvucontrol
 		networkmanagerapplet
 		brave
-    wechat-uos
     clash-verge-rev
   ];
 
