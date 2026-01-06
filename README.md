@@ -33,5 +33,5 @@ sudo nixos-rebuild switch --flake ~/nix-dotfiles#space
 - [x] Idle Daemon: hypridle
 - [x] Notification Daemon: swaync
 ### Animation
-- [] window
-- [] workspace
+- [ ] window
+- [ ] workspace

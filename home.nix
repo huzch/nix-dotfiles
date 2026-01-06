@@ -91,6 +91,8 @@ in
     };
 
     initContent = ''
+      PS1="%F{blue}%~%f"$'\n'"%F{green}➜ %f"
+
       function y() {
         local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
         yazi "$@" --cwd-file="$tmp"
