@@ -22,6 +22,7 @@ sudo nixos-rebuild switch --flake ~/nix-dotfiles#space
 ```
 
 ## TODO
+### Component
 - [x] Wallpaper: swww
 - [x] Status Bar: waybar
 - [x] App Launcher: rofi
@@ -31,3 +32,6 @@ sudo nixos-rebuild switch --flake ~/nix-dotfiles#space
 - [x] Polkit: hyprpolkitagent
 - [x] Idle Daemon: hypridle
 - [x] Notification Daemon: swaync
+### Animation
+- [] window
+- [] workspace
