@@ -32,7 +32,7 @@ button:focus {
 }
 
 #lock {
-    background-image: image(url("/usr/share/wlogout/icons/lock.png"), url("/usr/local/share/wlogout/icons/lock.png"));
+    background-image: url("icons/lock.png");
 }
 
 #lock:hover {
@@ -40,7 +40,7 @@ button:focus {
 }
 
 #logout {
-    background-image: image(url("/usr/share/wlogout/icons/logout.png"), url("/usr/local/share/wlogout/icons/logout.png"));
+    background-image: url("icons/logout.png");
 }
 
 #logout:hover {
@@ -48,7 +48,7 @@ button:focus {
 }
 
 #shutdown {
-    background-image: image(url("/usr/share/wlogout/icons/shutdown.png"), url("/usr/local/share/wlogout/icons/shutdown.png"));
+    background-image: url("icons/shutdown.png");
 }
 
 #shutdown:hover {
@@ -56,7 +56,7 @@ button:focus {
 }
 
 #reboot {
-    background-image: image(url("/usr/share/wlogout/icons/reboot.png"), url("/usr/local/share/wlogout/icons/reboot.png"));
+    background-image: url("icons/reboot.png");
 }
 
 #reboot:hover {
@@ -64,7 +64,7 @@ button:focus {
 }
 
 #suspend {
-    background-image: image(url("/usr/share/wlogout/icons/suspend.png"), url("/usr/local/share/wlogout/icons/suspend.png"));
+    background-image: url("icons/suspend.png");
 }
 
 #suspend:hover {
@@ -72,7 +72,7 @@ button:focus {
 }
 
 #hibernate {
-    background-image: image(url("/usr/share/wlogout/icons/hibernate.png"), url("/usr/local/share/wlogout/icons/hibernate.png"));
+    background-image: url("icons/hibernate.png");
 }
 
 #hibernate:hover {
