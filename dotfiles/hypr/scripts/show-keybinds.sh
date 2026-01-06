@@ -20,7 +20,7 @@ Alt + Tab          上个工作区
 Alt + Shift + 1-0  移动窗口
 
 <b>系统</b>
-Alt + Shift + L    锁屏
+Alt + M            关机菜单
 Alt + Shift + N    通知中心
 Alt + W            壁纸循环
 Alt + Shift + W    选择壁纸
