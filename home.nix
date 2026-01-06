@@ -23,6 +23,7 @@ in
     waybar
     rofi
     swww
+    mpvpaper
     wlogout
     cliphist
     wl-clipboard
