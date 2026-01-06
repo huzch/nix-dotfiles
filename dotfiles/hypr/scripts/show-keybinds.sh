@@ -25,6 +25,7 @@ Alt + Shift + 1-0  Move Window to Workspace
 Alt + Shift + L    Lock Screen
 Alt + Shift + N    Notification Center
 Alt + W            Cycle Wallpaper
+Alt + Shift + W    Select Wallpaper
 Alt + /            Show Keybindings
 Print              Screenshot Window
 Shift + Print      Screenshot Region
@@ -33,6 +34,4 @@ EOF
 
 # Display with rofi (-i for case-insensitive search)
 echo -e "$keybinds" | rofi -dmenu -i -markup-rows -p "Keybindings" \
-  -theme-str 'window {width: 600px;}' \
-  -kb-cancel "Escape" \
-  -no-custom
+  -theme-str 'window {width: 600px;}' 
