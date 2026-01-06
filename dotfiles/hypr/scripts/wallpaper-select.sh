@@ -4,6 +4,13 @@
 WALLPAPER_DIR="$HOME/wallpapers"
 STATE_FILE="$HOME/.cache/current_wallpaper_index"
 
+# 自动检测当前显示器
+MONITOR=$(hyprctl monitors | grep -A 1 "^Monitor" | head -n 1 | awk '{print $2}')
+if [ -z "$MONITOR" ]; then
+    notify-send "壁纸切换" "无法检测到显示器"
+    exit 1
+fi
+
 # 检查壁纸目录是否存在
 if [ ! -d "$WALLPAPER_DIR" ]; then
     notify-send "壁纸切换" "目录 $WALLPAPER_DIR 不存在"
@@ -54,13 +61,13 @@ if [ -n "$SELECTED_PATH" ]; then
     # 检查文件类型并应用相应的处理
     if [[ "$SELECTED_PATH" == *.mp4 ]]; then
         # 停止之前的 mpvpaper 进程
-        pkill -f "mpvpaper.*eDP-1" 2>/dev/null
-        # 使用 mpvpaper 播放 mp4 视频
-        mpvpaper -o "loop" eDP-1 "$SELECTED_PATH" &
+        pkill -f "mpvpaper.*$MONITOR" 2>/dev/null
+        # 使用 mpvpaper 播放 mp4 视频（使用软件渲染避免 GPU 驱动问题）
+        mpvpaper -o "no-audio --hwdec=no --vo=gpu" "$MONITOR" "$SELECTED_PATH" &
         EFFECT_MSG="视频循环播放"
     elif [[ "$SELECTED_PATH" == *.gif ]]; then
         # 停止 mpvpaper（如果在运行）
-        pkill -f "mpvpaper.*eDP-1" 2>/dev/null
+        pkill -f "mpvpaper.*$MONITOR" 2>/dev/null
         # gif 动图需要禁用过渡效果以保持动画播放
         swww img "$SELECTED_PATH" \
             --transition-type none \
@@ -68,7 +75,7 @@ if [ -n "$SELECTED_PATH" ]; then
         EFFECT_MSG="动画播放"
     else
         # 停止 mpvpaper（如果在运行）
-        pkill -f "mpvpaper.*eDP-1" 2>/dev/null
+        pkill -f "mpvpaper.*$MONITOR" 2>/dev/null
         # 静态图片使用随机过渡效果
         swww img "$SELECTED_PATH" \
             --transition-type "$RANDOM_TRANSITION" \

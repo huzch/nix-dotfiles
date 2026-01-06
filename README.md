@@ -35,3 +35,7 @@ sudo nixos-rebuild switch --flake ~/nix-dotfiles#space
 ### Animation
 - [ ] window
 - [ ] workspace
+### Hardware acceleration
+To test dotfiles on virtual machine, i make only cpu and software settings (for some programs).
+
+When running on real machine, please turn on gpu and hardware acceleration.
