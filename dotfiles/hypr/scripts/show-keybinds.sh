@@ -22,6 +22,7 @@ Alt + Shift + 1-0  移动窗口
 <b>系统</b>
 Alt + M            关机菜单
 Alt + Shift + N    通知中心
+Alt + V            剪贴板历史
 Alt + W            壁纸循环
 Alt + Shift + W    选择壁纸
 Alt + /            显示快捷键

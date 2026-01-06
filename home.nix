@@ -24,6 +24,8 @@ in
     rofi
     swww
     wlogout
+    cliphist
+    wl-clipboard
     hypridle
     hyprlock
     hyprpolkitagent
