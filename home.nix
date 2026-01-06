@@ -108,10 +108,6 @@ in
     enableZshIntegration = true;
   };
 
-  wayland.windowManager.hyprland.plugins = [
-    pkgs.hyprlandPlugins.hyprscrolling
-  ];
-
   # 配置文件链接
   xdg.configFile = builtins.mapAttrs (name: value: {
     source = link "${dotfiles}/${name}";
