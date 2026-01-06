@@ -27,7 +27,7 @@ for wallpaper in "${WALLPAPERS[@]}"; do
 done
 
 # 使用 rofi 显示选择器
-SELECTED=$(echo -e "$OPTIONS" | rofi -dmenu -i -p "wallpapers" \
+SELECTED=$(echo -e "$OPTIONS" | rofi -dmenu -i -matching fuzzy -p "wallpapers" \
     -theme-str 'window {width: 800px;}' \
     -theme-str 'listview {lines: 10;}')
 

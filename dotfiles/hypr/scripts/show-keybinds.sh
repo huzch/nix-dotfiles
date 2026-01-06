@@ -30,5 +30,5 @@ Shift + Print      截图区域
 EOF
 )
 
-echo -e "$keybinds" | rofi -dmenu -i -markup-rows -p "Keybinds" \
-  -theme-str 'window {width: 600px;}' 
+echo -e "$keybinds" | rofi -dmenu -i -matching fuzzy -markup-rows -p "keybinds" \
+  -theme-str 'window {width: 600px;}'
