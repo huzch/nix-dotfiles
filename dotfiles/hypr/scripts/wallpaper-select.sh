@@ -11,7 +11,7 @@ if [ ! -d "$WALLPAPER_DIR" ]; then
 fi
 
 # 获取所有图片文件
-mapfile -t WALLPAPERS < <(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) | sort)
+mapfile -t WALLPAPERS < <(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" -o -iname "*.gif" \) | sort)
 
 # 检查是否有壁纸
 if [ ${#WALLPAPERS[@]} -eq 0 ]; then
@@ -51,14 +51,24 @@ if [ -n "$SELECTED_PATH" ]; then
     TRANSITIONS=("simple" "fade" "left" "right" "top" "bottom" "wipe" "wave" "grow" "center" "outer")
     RANDOM_TRANSITION=${TRANSITIONS[$RANDOM % ${#TRANSITIONS[@]}]}
     
-    swww img "$SELECTED_PATH" \
-        --transition-type "$RANDOM_TRANSITION" \
-        --transition-fps 60
+    # 检查是否为 gif 格式
+    if [[ "$SELECTED_PATH" == *.gif ]]; then
+        # gif 动图需要禁用过渡效果以保持动画播放
+        swww img "$SELECTED_PATH" \
+            --transition-type none \
+            --transition-fps 60
+        EFFECT_MSG="动画播放"
+    else
+        swww img "$SELECTED_PATH" \
+            --transition-type "$RANDOM_TRANSITION" \
+            --transition-fps 60
+        EFFECT_MSG="效果: $RANDOM_TRANSITION"
+    fi
     
     # 保存当前索引
     echo "$SELECTED_INDEX" > "$STATE_FILE"
     
     # 发送通知
     WALLPAPER_NAME=$(basename "$SELECTED_PATH")
-    notify-send -a "壁纸切换" "壁纸已切换" "$WALLPAPER_NAME (效果: $RANDOM_TRANSITION)" -t 3000
+    notify-send -a "壁纸切换" "壁纸已切换" "$WALLPAPER_NAME ($EFFECT_MSG)" -t 3000
 fi

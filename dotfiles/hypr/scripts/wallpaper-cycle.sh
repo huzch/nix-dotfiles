@@ -6,7 +6,7 @@ WALLPAPER_DIR="$HOME/wallpapers"
 STATE_FILE="$HOME/.cache/current_wallpaper_index"
 
 # 获取所有图片文件（支持常见图片格式）
-mapfile -t WALLPAPERS < <(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) | sort)
+mapfile -t WALLPAPERS < <(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" -o -iname "*.gif" \) | sort)
 
 # 检查是否有壁纸
 if [ ${#WALLPAPERS[@]} -eq 0 ]; then
@@ -34,7 +34,13 @@ TRANSITIONS=("simple" "fade" "left" "right" "top" "bottom" "wipe" "wave" "grow" 
 RANDOM_TRANSITION=${TRANSITIONS[$RANDOM % ${#TRANSITIONS[@]}]}
 
 # 使用 swww 设置壁纸，使用随机过渡效果
-swww img "$NEXT_WALLPAPER" --transition-type "$RANDOM_TRANSITION" --transition-fps 60
+# 检查是否为 gif 格式
+if [[ "$NEXT_WALLPAPER" == *.gif ]]; then
+    # gif 动图需要禁用过渡效果以保持动画播放
+    swww img "$NEXT_WALLPAPER" --transition-type none --transition-fps 60
+else
+    swww img "$NEXT_WALLPAPER" --transition-type "$RANDOM_TRANSITION" --transition-fps 60
+fi
 
 # 保存新的索引
 echo "$NEXT_INDEX" > "$STATE_FILE"
