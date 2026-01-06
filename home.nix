@@ -23,6 +23,7 @@ in
     swww
     hypridle
     hyprlock
+    hyprpolkitagent
     swaynotificationcenter
     neovim
     yazi
@@ -32,6 +33,8 @@ in
 		pwvucontrol
 		networkmanagerapplet
 		brave
+    wechat-uos
+    clash-verge-rev
   ];
 
   home.sessionVariables = {
@@ -95,7 +98,7 @@ in
 
     profileExtra = ''
       if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
-        exec ${pkgs.hyprland}/bin/Hyprland
+        exec uwsm start default
       fi
     '';
   };

@@ -48,6 +48,7 @@
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
+    withUWSM = true;
   };
   hardware.graphics = {
     enable = true;
@@ -63,6 +64,7 @@
   };
 
   # 系统软件包
+  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     vim
     git
