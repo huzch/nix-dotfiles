@@ -65,6 +65,7 @@
 
   # 系统软件包
   nixpkgs.config.allowUnfree = true;
+  programs.nix-ld.enable = true; # FHS兼容
   environment.systemPackages = with pkgs; [
     vim
     git
