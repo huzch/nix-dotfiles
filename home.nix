@@ -10,6 +10,7 @@ let
     nvim = "nvim";
     waybar = "waybar";
     rofi = "rofi";
+    swaync = "swaync";
   };
 in
 {
@@ -25,6 +26,7 @@ in
     hyprlock
     hyprpolkitagent
     swaynotificationcenter
+    libnotify
     neovim
     yazi
     lazygit

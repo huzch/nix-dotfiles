@@ -1,42 +1,42 @@
 #!/usr/bin/env bash
 
-# Wallpaper directory
+# 壁纸目录
 WALLPAPER_DIR="$HOME/wallpapers"
 STATE_FILE="$HOME/.cache/current_wallpaper_index"
 
-# Check if wallpaper directory exists
+# 检查壁纸目录是否存在
 if [ ! -d "$WALLPAPER_DIR" ]; then
-    notify-send "Wallpaper Selector" "Directory $WALLPAPER_DIR not found"
+    notify-send "壁纸切换" "目录 $WALLPAPER_DIR 不存在"
     exit 1
 fi
 
-# Get all image files
+# 获取所有图片文件
 mapfile -t WALLPAPERS < <(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) | sort)
 
-# Check if there are any wallpapers
+# 检查是否有壁纸
 if [ ${#WALLPAPERS[@]} -eq 0 ]; then
-    notify-send "Wallpaper Selector" "No images found in $WALLPAPER_DIR"
+    notify-send "壁纸切换" "在 $WALLPAPER_DIR 中没有找到图片文件"
     exit 1
 fi
 
-# Create a list for rofi with just filenames
+# 创建 rofi 选项列表（仅文件名）
 OPTIONS=""
 for wallpaper in "${WALLPAPERS[@]}"; do
     filename=$(basename "$wallpaper")
     OPTIONS="${OPTIONS}${filename}\n"
 done
 
-# Show rofi with image preview using icon-theme
-SELECTED=$(echo -e "$OPTIONS" | rofi -dmenu -i -p "Wallpapers" \
+# 使用 rofi 显示选择器
+SELECTED=$(echo -e "$OPTIONS" | rofi -dmenu -i -p "wallpapers" \
     -theme-str 'window {width: 800px;}' \
     -theme-str 'listview {lines: 10;}')
 
-# If nothing selected, exit
+# 如果没有选择，退出
 if [ -z "$SELECTED" ]; then
     exit 0
 fi
 
-# Find the full path of selected wallpaper
+# 查找选中壁纸的完整路径
 for i in "${!WALLPAPERS[@]}"; do
     if [ "$(basename "${WALLPAPERS[$i]}")" = "$SELECTED" ]; then
         SELECTED_PATH="${WALLPAPERS[$i]}"
@@ -45,19 +45,20 @@ for i in "${!WALLPAPERS[@]}"; do
     fi
 done
 
-# Switch wallpaper using swww
+# 使用 swww 切换壁纸
 if [ -n "$SELECTED_PATH" ]; then
-    # Random transition effect
-    TRANSITIONS=("fade" "wipe" "grow" "wave" "outer")
+    # 随机过渡效果
+    TRANSITIONS=("simple" "fade" "left" "right" "top" "bottom" "wipe" "wave" "grow" "center" "outer")
     RANDOM_TRANSITION=${TRANSITIONS[$RANDOM % ${#TRANSITIONS[@]}]}
     
     swww img "$SELECTED_PATH" \
         --transition-type "$RANDOM_TRANSITION" \
-        --transition-duration 1.5 \
         --transition-fps 60
     
-    # Save current index
+    # 保存当前索引
     echo "$SELECTED_INDEX" > "$STATE_FILE"
     
-    notify-send "Wallpaper Changed" "$(basename "$SELECTED_PATH")"
+    # 发送通知
+    WALLPAPER_NAME=$(basename "$SELECTED_PATH")
+    notify-send -a "壁纸切换" "壁纸已切换" "$WALLPAPER_NAME (效果: $RANDOM_TRANSITION)" -t 3000
 fi
