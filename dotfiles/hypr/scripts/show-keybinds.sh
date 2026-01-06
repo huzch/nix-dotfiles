@@ -5,6 +5,7 @@ keybinds=$(cat <<EOF
 Alt + Return       打开终端
 Alt + Q            关闭窗口
 Alt + Space        应用启动器
+Alt + T            切换浮动
 Alt + F            最大化
 Alt + Shift + F    全屏
 
