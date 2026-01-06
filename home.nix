@@ -11,6 +11,7 @@ let
     waybar = "waybar";
     rofi = "rofi";
     swaync = "swaync";
+    wlogout = "wlogout";
   };
 in
 {
@@ -22,6 +23,7 @@ in
     waybar
     rofi
     swww
+    wlogout
     hypridle
     hyprlock
     hyprpolkitagent

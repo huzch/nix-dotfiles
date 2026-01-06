@@ -1,0 +1,80 @@
+/* Catppuccin Mocha Theme for wlogout */
+
+* {
+    background-image: none;
+    box-shadow: none;
+}
+
+window {
+    background-color: rgba(30, 30, 46, 0.9);
+}
+
+button {
+    border-radius: 10px;
+    border: 2px solid #45475a;
+    background-color: #1e1e2e;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 25%;
+    margin: 20px;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #313244;
+    border: 2px solid #89b4fa;
+    outline-style: none;
+}
+
+button:focus {
+    background-color: #45475a;
+    outline-style: none;
+}
+
+#lock {
+    background-image: image(url("/usr/share/wlogout/icons/lock.png"), url("/usr/local/share/wlogout/icons/lock.png"));
+}
+
+#lock:hover {
+    border: 2px solid #f9e2af;
+}
+
+#logout {
+    background-image: image(url("/usr/share/wlogout/icons/logout.png"), url("/usr/local/share/wlogout/icons/logout.png"));
+}
+
+#logout:hover {
+    border: 2px solid #89b4fa;
+}
+
+#shutdown {
+    background-image: image(url("/usr/share/wlogout/icons/shutdown.png"), url("/usr/local/share/wlogout/icons/shutdown.png"));
+}
+
+#shutdown:hover {
+    border: 2px solid #f38ba8;
+}
+
+#reboot {
+    background-image: image(url("/usr/share/wlogout/icons/reboot.png"), url("/usr/local/share/wlogout/icons/reboot.png"));
+}
+
+#reboot:hover {
+    border: 2px solid #a6e3a1;
+}
+
+#suspend {
+    background-image: image(url("/usr/share/wlogout/icons/suspend.png"), url("/usr/local/share/wlogout/icons/suspend.png"));
+}
+
+#suspend:hover {
+    border: 2px solid #94e2d5;
+}
+
+#hibernate {
+    background-image: image(url("/usr/share/wlogout/icons/hibernate.png"), url("/usr/local/share/wlogout/icons/hibernate.png"));
+}
+
+#hibernate:hover {
+    border: 2px solid #cba6f7;
+}

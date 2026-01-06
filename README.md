@@ -26,7 +26,7 @@ sudo nixos-rebuild switch --flake ~/nix-dotfiles#space
 - [x] Status Bar: waybar
 - [x] App Launcher: rofi
 - [ ] Clipboard Manager
-- [ ] Lock Screen: hyprlock
+- [x] Lock Screen: hyprlock
 - [ ] Logout Menu: wlogout
 - [x] Polkit: hyprpolkitagent
 - [x] Idle Daemon: hypridle
