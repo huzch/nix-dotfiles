@@ -33,10 +33,10 @@ sudo nixos-rebuild switch --flake ~/nix-dotfiles#space
 - [x] Idle Daemon: hypridle
 - [x] Notification Daemon: swaync
 ### Animation
-- [ ] window
+- [x] window
 - [ ] workspace
 ### Other
-- [ ] waybar icons(system/notification)
+- [x] waybar icons(system)
 - [ ] fcitx5 skin or rime conf
 ### Hardware acceleration
 To test dotfiles on virtual machine, i make only cpu and software settings (for some programs).
