@@ -1,6 +1,9 @@
+## Overview
+![Desktop Screenshot](https://private-user-images.githubusercontent.com/144591024/532850531-2ebbcea9-4bdf-4668-8157-9c771e9dfb5a.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Njc3OTM2OTAsIm5iZiI6MTc2Nzc5MzM5MCwicGF0aCI6Ii8xNDQ1OTEwMjQvNTMyODUwNTMxLTJlYmJjZWE5LTRiZGYtNDY2OC04MTU3LTljNzcxZTlkZmI1YS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMTA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDEwN1QxMzQzMTBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT05NTYzZDRhNTQzMTc0NjFlZjU1OTc0NDIwMDkxZTQyMThjZDhmNWRlMzBkYzlhM2ZlOWFmYjEzYTlhZDQzOTM3JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.PKFs_hc1RFN79fmzsYK-0gK1RhfSZuHH3IifKUJ7wkU)
+<!-- To add screenshots: Create an issue, drag & drop your images, then copy the generated URL here -->
+
 ## Quick Start
 > Due to soft-link problem, we need two step to set up nix-dotfiles.
-
 ### 1. Live ISO
 ```bash
 git clone https://github.com/huzch/nix-dotfiles.git
@@ -34,7 +37,7 @@ sudo nixos-rebuild switch --flake ~/nix-dotfiles#space
 - [x] Notification Daemon: swaync
 ### Animation
 - [x] window
-- [ ] workspace
+- [x] workspace
 ### Other
 - [x] waybar icons(system)
 - [ ] fcitx5 skin or rime conf
