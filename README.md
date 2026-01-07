@@ -35,6 +35,9 @@ sudo nixos-rebuild switch --flake ~/nix-dotfiles#space
 ### Animation
 - [ ] window
 - [ ] workspace
+### Other
+- [ ] waybar icons(system/notification)
+- [ ] fcitx5 skin or rime conf
 ### Hardware acceleration
 To test dotfiles on virtual machine, i make only cpu and software settings (for some programs).
 
