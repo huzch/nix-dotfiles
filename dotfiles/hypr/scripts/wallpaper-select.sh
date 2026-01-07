@@ -29,7 +29,7 @@ done
 
 # 使用 rofi 显示选择器
 SELECTED=$(echo -e "$OPTIONS" | rofi -dmenu -i -matching fuzzy -p "wallpapers" \
-    -theme-str 'window {width: 800px;}' \
+    -theme-str 'window {width: 600px;}' \
     -theme-str 'listview {lines: 10;}')
 
 # 如果没有选择，退出
