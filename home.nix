@@ -5,6 +5,7 @@ let
   link = path: config.lib.file.mkOutOfStoreSymlink path;
 
   configs = {
+    color = "color";
     fastfetch = "fastfetch";
     hypr = "hypr";
     nvim = "nvim";

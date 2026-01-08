@@ -1,15 +1,7 @@
-* {
-    bg-col:  #24273a;
-    bg-col-light: #363a4f;
-    border-col: #8aadf4;
-    selected-col: #363a4f;
-    blue: #8aadf4;
-    fg-col: #cad3f5;
-    fg-col2: #ed8796;
-    grey: #6e738d;
+@import "../color/color.rasi";
 
+* {
     width: 600;
-    font: "Hack Nerd Font 12";
 }
 
 element-text, element-icon , mode-switcher {

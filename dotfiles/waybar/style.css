@@ -1,3 +1,5 @@
+@import "../color/color.css";
+
 * {
     border: none;
     border-radius: 20px;
@@ -9,7 +11,7 @@
 window#waybar {
     background-color: transparent;
     border-bottom: 0px solid rgba(100, 114, 125, 0.5);
-    color: #ffffff;
+    color: @text;
     transition-property: background-color;
     transition-duration: .5s;
 }
@@ -25,19 +27,19 @@ button {
 }
 
 #custom-gpu:hover {
-    background-color: rgba(250, 179, 135, 0.3); /* Catppuccin Mocha peach */
+    background-color: alpha(@peach, 0.3);
 }
 
 #custom-nixos:hover {
-    background-color: rgba(137, 180, 250, 0.3); /* Catppuccin Mocha blue */
+    background-color: alpha(@blue, 0.3);
 }
 
 #pulseaudio:hover {
-    background-color: rgba(166, 227, 161, 0.3); /* Catppuccin Mocha green */
+    background-color: alpha(@green, 0.3);
 }
 
 #network:hover {
-    background-color: rgba(137, 180, 250, 0.3); /* Catppuccin Mocha blue */
+    background-color: alpha(@blue, 0.3);
 }
 
 #workspaces {
@@ -46,8 +48,8 @@ button {
 }
 
 #workspaces button {
-    color: #a6adc8; /* Catppuccin Mocha subtext0 */
-    background: rgba(49, 50, 68, 0.6); /* Catppuccin Mocha surface0 */
+    color: @subtext0;
+    background: alpha(@surface0, 0.6);
     border: none;
     padding: 8px;
     margin: 0 3px;
@@ -58,80 +60,80 @@ button {
 }
 
 #workspaces button.active {
-    color: #1e1e2e; /* Catppuccin Mocha base */
-    background: #89b4fa; /* Catppuccin Mocha blue */
+    color: @base;
+    background: @blue;
     font-weight: bold;
     padding: 8px 14px;
     margin: 0 3px;
     border-radius: 20px;
     min-width: 30px;
     opacity: 1;
-    box-shadow: 0 2px 8px rgba(137, 180, 250, 0.5);
+    box-shadow: 0 2px 8px alpha(@blue, 0.5);
 }
 
 #workspaces button:hover {
     opacity: 0.9;
-    background: rgba(137, 180, 250, 0.5);
+    background: alpha(@blue, 0.5);
 }
 
 #clock {
-    background: rgba(49, 50, 68, 0.95); /* Catppuccin Mocha surface0 */
-    color: #cdd6f4; /* Catppuccin Mocha text */
+    background: alpha(@surface0, 0.95);
+    color: @text;
     padding: 5px 10px;
     border-radius: 20px;
 }
 
 #cpu {
-    background: rgba(49, 50, 68, 0.95); /* Catppuccin Mocha surface0 */
-    color: #f38ba8; /* Catppuccin Mocha red */
+    background: alpha(@surface0, 0.95);
+    color: @red;
     padding: 5px 10px;
     border-radius: 20px;
 }
 
 #custom-gpu {
-    background: rgba(49, 50, 68, 0.95); /* Catppuccin Mocha surface0 */
-    color: #a6adc8; /* Catppuccin Mocha subtext0 */
+    background: alpha(@surface0, 0.95);
+    color: @subtext0;
     padding: 5px 10px;
     border-radius: 20px;
 }
 
 #memory {
-    background: rgba(49, 50, 68, 0.95); /* Catppuccin Mocha surface0 */
-    color: #fab387; /* Catppuccin Mocha peach */
+    background: alpha(@surface0, 0.95);
+    color: @peach;
     padding: 5px 10px;
     border-radius: 20px;
 }
 
 #battery {
-    background: rgba(49, 50, 68, 0.95); /* Catppuccin Mocha surface0 */
-    color: #f9e2af; /* Catppuccin Mocha yellow */
+    background: alpha(@surface0, 0.95);
+    color: @yellow;
     padding: 5px 10px;
     border-radius: 20px;
 }
 
 #pulseaudio {
-    background: rgba(49, 50, 68, 0.95); /* Catppuccin Mocha surface0 */
-    color: #a6e3a1; /* Catppuccin Mocha green */
+    background: alpha(@surface0, 0.95);
+    color: @green;
     padding: 5px 10px;
     border-radius: 20px;
 }
 
 #network {
-    background: rgba(49, 50, 68, 0.95); /* Catppuccin Mocha surface0 */
-    color: #89b4fa; /* Catppuccin Mocha blue */
+    background: alpha(@surface0, 0.95);
+    color: @blue;
     padding: 5px 10px;
     border-radius: 20px;
 }
 
 #tray {
-    background: rgba(49, 50, 68, 0.95); /* Catppuccin Mocha surface0 */
+    background: alpha(@surface0, 0.95);
     padding: 5px 10px;
     border-radius: 20px;
 }
 
 #custom-nixos {
-    background: rgba(49, 50, 68, 0.95); /* Catppuccin Mocha surface0 */
-    color: #89b4fa; /* Catppuccin Mocha blue */
+    background: alpha(@surface0, 0.95);
+    color: @blue;
     padding: 5px 10px;
     border-radius: 25px;
 }

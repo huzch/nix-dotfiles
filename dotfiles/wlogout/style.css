@@ -1,4 +1,5 @@
 /* Catppuccin Mocha Theme for wlogout */
+@import "../color/color.css";
 
 * {
     background-image: none;
@@ -6,19 +7,19 @@
 }
 
 window {
-    background-color: rgba(30, 30, 46, 0.9);
+    background-color: alpha(@base, 0.9);
 }
 
 button {
     border-radius: 10px;
-    border: 2px solid #45475a;
-    background-color: #1e1e2e;
+    border: 2px solid @surface1;
+    background-color: @base;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 25%;
     margin: 20px;
     transition: all 0.3s ease;
-    color: #cdd6f4;
+    color: @text;
     font-family: "Noto Sans CJK SC", sans-serif;
     font-size: 18px;
     font-weight: bold;
@@ -26,13 +27,13 @@ button {
 }
 
 button:hover {
-    background-color: #313244;
-    border: 2px solid #89b4fa;
+    background-color: @surface0;
+    border: 2px solid @blue;
     outline-style: none;
 }
 
 button:focus {
-    background-color: #45475a;
+    background-color: @surface1;
     outline-style: none;
 }
 
@@ -41,7 +42,7 @@ button:focus {
 }
 
 #lock:hover {
-    border: 2px solid #f9e2af;
+    border: 2px solid @yellow;
 }
 
 #logout {
@@ -49,7 +50,7 @@ button:focus {
 }
 
 #logout:hover {
-    border: 2px solid #89b4fa;
+    border: 2px solid @blue;
 }
 
 #shutdown {
@@ -57,7 +58,7 @@ button:focus {
 }
 
 #shutdown:hover {
-    border: 2px solid #f38ba8;
+    border: 2px solid @red;
 }
 
 #reboot {
@@ -65,7 +66,7 @@ button:focus {
 }
 
 #reboot:hover {
-    border: 2px solid #a6e3a1;
+    border: 2px solid @green;
 }
 
 #suspend {
@@ -73,7 +74,7 @@ button:focus {
 }
 
 #suspend:hover {
-    border: 2px solid #94e2d5;
+    border: 2px solid @teal;
 }
 
 #hibernate {
@@ -81,5 +82,5 @@ button:focus {
 }
 
 #hibernate:hover {
-    border: 2px solid #cba6f7;
+    border: 2px solid @mauve;
 }
