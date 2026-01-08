@@ -1,0 +1,14 @@
+# 用于配置 Rime 全局参数
+patch:
+  # 候选词个数
+  menu/page_size: 9
+  # 方案列表，这里只启用雾凇拼音
+  schema_list:
+    - schema: rime_ice
+  # 切换快捷键
+  "ascii_composer/switch_key":
+    Caps_Lock: commit_code
+    Shift_L: commit_code
+    Shift_R: noop
+    Control_L: noop
+    Control_R: noop

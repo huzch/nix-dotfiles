@@ -1,0 +1,10 @@
+# 针对雾凇拼音 (rime-ice) 的自定义配置
+patch:
+  # 加载常用符号
+  "punctuator/import_preset": symbols
+  
+  # 拼写检查
+  "translator/enable_sentence": true
+  
+  # 用户自定义词库（如果你以后有自己的词库文件，可以在此添加）
+  # "translator/dictionary": rime_ice.extended
