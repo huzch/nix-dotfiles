@@ -28,7 +28,7 @@
 @define-color crust #11111b;
 
 * {
-  font-family: "Hack Nerd Font";
+  font-family: "Inter", "Symbols Nerd Font";
   font-size: 14px;
 }
 

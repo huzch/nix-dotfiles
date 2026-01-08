@@ -18,22 +18,43 @@
   time.timeZone = "Asia/Shanghai";
 
   # 语言
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.inputMethod = {
-    enable = true;
-    type = "fcitx5";
-    fcitx5.addons = with pkgs; [
-      qt6Packages.fcitx5-chinese-addons
-      fcitx5-gtk
-    ];
-    fcitx5.waylandFrontend = true; 
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    inputMethod = {
+      enable = true;
+      type = "fcitx5";
+      fcitx5.addons = with pkgs; [
+        qt6Packages.fcitx5-chinese-addons
+        fcitx5-gtk
+      ];
+      fcitx5.waylandFrontend = true; 
+    };
   };
-  fonts.packages = with pkgs; [
-    nerd-fonts.hack
-    noto-fonts-cjk-sans
-    noto-fonts-cjk-serif
-    noto-fonts-color-emoji
-  ];
+  fonts = {
+    fontDir.enable = true;
+    packages = with pkgs; [
+      inter # UI字体
+      nerd-fonts.symbols-only # UI图标
+      nerd-fonts.jetbrains-mono # 终端/代码字体
+      noto-fonts-cjk-sans # 核心中文黑体 (思源黑体)
+      noto-fonts-cjk-serif # 核心中文宋体 (思源宋体)
+      noto-fonts-color-emoji # 彩色Emoji
+    ];
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        # 无衬线字体 (UI, 网页)
+        sansSerif = [ "Inter" "Noto Sans CJK SC" "Noto Sans CJK TC" ];
+        # 衬线字体 (文档阅读)
+        serif = [ "Noto Serif" "Noto Serif CJK SC" "Noto Serif CJK TC" ];
+        # 等宽字体 (终端, 代码)
+        monospace = [ "JetBrainsMono Nerd Font" "Noto Sans Mono CJK SC" ];
+        # Emoji
+        emoji = [ "Noto Color Emoji" ];
+      };
+    };
+  };
+  
 
   # 音视频
   security.rtkit.enable = true;

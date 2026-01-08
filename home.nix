@@ -60,7 +60,7 @@ in
     enable = true;
     settings = {
       main = {
-        font = "Hack Nerd Font:size=20";
+        font = "JetBrainsMono Nerd Font:size=20, Symbols Nerd Font:size=20";
         pad = "10x10 center";
       };
       colors = {
