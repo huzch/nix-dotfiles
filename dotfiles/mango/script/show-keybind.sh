@@ -21,6 +21,8 @@ Alt + Tab                  展示所有窗口
 Alt + M                    关机菜单
 Alt + N                    通知中心
 Alt + V                    剪贴板历史
+Alt + P                    截图
+Alt + Shift + P            区域截图
 Alt + W                    壁纸循环
 Alt + Shift + W            选择壁纸
 Alt + /                    显示快捷键

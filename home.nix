@@ -21,30 +21,32 @@ in
   home.stateVersion = "25.05";
 
   home.packages = with pkgs; [
-    waybar
-    rofi
-    swww
-    mpvpaper
-    wlogout
-		wlr-randr
-		wlrctl
-		wlopm
-    cliphist
-    wl-clipboard
-    wl-clip-persist
-    swaylock-effects
-    swayidle
-    swaynotificationcenter
-    libnotify
-    bibata-cursors
-    neovim
-    yazi
-    lazygit
-    fastfetch
-		go-musicfox
-		pwvucontrol
-		networkmanagerapplet
-		brave
+    waybar # 状态栏
+    rofi # 应用启动器
+    swww # 壁纸管理
+    mpvpaper # 动态壁纸
+    wlogout # 关机菜单
+		wlr-randr # 显示器管理
+		wlrctl # 显示器控制
+		wlopm # 电源管理
+    grim # 截图工具
+    slurp # 选择区域截图
+    cliphist # 剪贴板管理
+    wl-clipboard # 剪贴板工具
+    wl-clip-persist # 剪贴板持久化
+    swaylock-effects # 锁屏效果
+    swayidle # 屏幕闲置管理
+    swaynotificationcenter # 通知中心
+    libnotify # 通知库
+    bibata-cursors # 光标主题
+    neovim # 文本编辑器
+    yazi # 文件管理器
+    lazygit # Git 界面工具
+    fastfetch # 系统信息工具
+		go-musicfox # 音乐播放器
+		pwvucontrol # 音量控制
+		networkmanagerapplet # 网络管理
+		brave # 浏览器
     # vscode
     # clash-verge-rev
 		# wechat
