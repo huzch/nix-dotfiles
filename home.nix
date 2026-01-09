@@ -41,6 +41,7 @@ in
 		pwvucontrol
 		networkmanagerapplet
 		brave
+    bibata-cursors
     # vscode
     # clash-verge-rev
   ];
