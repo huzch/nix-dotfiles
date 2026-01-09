@@ -26,10 +26,10 @@
       fcitx5 = {
         waylandFrontend = true;
         addons = with pkgs; [
-          (fcitx5-rime.override {
-            rimeDataPkgs = [ rime-ice ];
+          (fcitx5-rime.override { # Rime输入法
+            rimeDataPkgs = [ rime-ice ]; # 雾凇拼音
           })
-          fcitx5-nord
+          fcitx5-nord # 皮肤
         ];
       };
     };

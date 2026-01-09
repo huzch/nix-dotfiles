@@ -121,18 +121,5 @@ in
   xdg.configFile = (builtins.mapAttrs (name: value: {
     source = link "${dotfiles}/${value}";
     recursive = true;
-  }) configs) // {
-    "fcitx5/conf/classicui.conf".text = ''
-      Vertical Candidate List=False
-      PerScreenDPI=True
-      Font="Inter 12"
-      MenuFont="Inter 12"
-      TrayFont="Inter 12"
-      Theme=Nord-Dark
-    '';
-  };
-
-  xdg.dataFile = {
-    "fcitx5/rime".source = link "${dotfiles}/fcitx5/rime";
-  };
+  }) configs);
 }

@@ -40,7 +40,7 @@ sudo nixos-rebuild switch --flake ~/nix-dotfiles#space
 - [x] workspace
 ### Other
 - [x] waybar icons(system)
-- [ ] fcitx5 skin or rime conf
+- [ ] fcitx5 rime + rime-ice + skin
 ### Hardware acceleration
 To test dotfiles on virtual machine, i make only cpu and software settings (for some programs).
 
