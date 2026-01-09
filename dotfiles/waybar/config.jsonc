@@ -11,7 +11,7 @@
         "clock"
     ],
     "modules-center": [
-        "hyprland/workspaces"
+        "ext/workspaces"
     ],
     "modules-right": [
         "cpu",
@@ -21,13 +21,19 @@
         "pulseaudio",
         "network"
     ],
-    "hyprland/workspaces": {
+    "ext/workspaces": {
         "format": "{id}",
-        "on-click": "hyprctl dispatch workspace {id}",
-        "on-scroll-up": "hyprctl dispatch workspace e+1",
-        "on-scroll-down": "hyprctl dispatch workspace e-1",
-        "persistent-workspaces": {
-            "*": 4
+        "ignore-hidden": true,
+        "on-click": "activate",
+        "on-click-right": "deactivate",
+        "on-scroll-up": "mmsg -d viewtoleft_have_client",
+        "on-scroll-down": "mmsg -d viewtoright_have_client",
+        "sort-by-id": true,
+        "format-icons": {
+            "1": " ",
+            "2": " ",
+            "3": " ",
+            "4": " "
         }
     },
     "clock": {
