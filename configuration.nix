@@ -70,6 +70,7 @@
   };
 
   # 图形环境
+  programs.mango.enable = true;
   hardware.graphics = {
     enable = true;
   };

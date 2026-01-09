@@ -31,9 +31,7 @@
           };
         }
         disko.nixosModules.disko
-        mango.nixosModules.mango {
-          programs.mango.enable = true;
-        }
+        mango.nixosModules.mango
       ];
     };
   };
