@@ -33,6 +33,7 @@ in
     hyprpolkitagent
     swaynotificationcenter
     libnotify
+    bibata-cursors
     neovim
     yazi
     lazygit
@@ -41,9 +42,9 @@ in
 		pwvucontrol
 		networkmanagerapplet
 		brave
-    bibata-cursors
     # vscode
     # clash-verge-rev
+		# wechat
   ];
 
   home.sessionVariables = {
