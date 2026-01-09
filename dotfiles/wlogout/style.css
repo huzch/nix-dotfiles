@@ -28,8 +28,11 @@ button {
 
 button:hover {
     background-color: @surface0;
+		background-size: 50%;
     border: 2px solid @blue;
     outline-style: none;
+		color: transparent;
+		text-shadow: none;
 }
 
 button:focus {
