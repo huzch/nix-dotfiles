@@ -31,6 +31,7 @@ in
 		wlopm
     cliphist
     wl-clipboard
+    wl-clip-persist
     swaylock-effects
     swayidle
     swaynotificationcenter

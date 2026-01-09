@@ -18,8 +18,8 @@ fi
 args=(
     --clock
     --indicator
-    --indicator-radius 120
-    --indicator-thickness 12
+    --indicator-radius 220
+    --indicator-thickness 20
     --effect-blur 7x5
     --effect-greyscale
     --effect-vignette 0.5:0.5
