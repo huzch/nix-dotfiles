@@ -10,9 +10,8 @@ let
     mango = "mango";
     nvim = "nvim";
 		rofi = "rofi";
-    waybar = "waybar";
-    rofi = "rofi";
     swaync = "swaync";
+    waybar = "waybar";
     wlogout = "wlogout";
   };
 in
@@ -30,9 +29,6 @@ in
     wlogout
     cliphist
     wl-clipboard
-    hypridle
-    hyprlock
-    hyprpolkitagent
     swaynotificationcenter
     libnotify
     bibata-cursors
@@ -111,9 +107,7 @@ in
     '';
 
     profileExtra = ''
-      if uwsm check may-start; then
-        exec uwsm start default
-      fi
+      exec mango
     '';
   };
 
