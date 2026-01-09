@@ -27,6 +27,7 @@ in
     mpvpaper
     wlogout
 		wlr-randr
+		wlrctl
     cliphist
     wl-clipboard
     swaynotificationcenter
