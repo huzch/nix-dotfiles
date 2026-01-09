@@ -11,13 +11,13 @@ window {
 }
 
 button {
-    border-radius: 10px;
+    border-radius: 20px;
     border: 2px solid @surface1;
     background-color: @base;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 25%;
-    margin: 20px;
+    background-size: 40%;
+    margin: 140px 10px;
     transition: all 0.3s ease;
     color: @text;
     font-family: "Noto Sans CJK SC", sans-serif;
@@ -28,15 +28,15 @@ button {
 
 button:hover {
     background-color: @surface0;
-		background-size: 50%;
+    background-size: 80%;
     border: 2px solid @blue;
     outline-style: none;
-		color: transparent;
-		text-shadow: none;
+    color: transparent;
+    text-shadow: none;
 }
 
 button:focus {
-    background-color: @surface1;
+    background-color: @base;
     outline-style: none;
 }
 
@@ -78,12 +78,4 @@ button:focus {
 
 #suspend:hover {
     border: 2px solid @teal;
-}
-
-#hibernate {
-    background-image: url("icons/hibernate.png");
-}
-
-#hibernate:hover {
-    border: 2px solid @mauve;
 }
