@@ -30,6 +30,7 @@ in
 		wlrctl
     cliphist
     wl-clipboard
+    swaylock-effects
     swaynotificationcenter
     libnotify
     bibata-cursors
