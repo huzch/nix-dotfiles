@@ -41,7 +41,8 @@ in
 		pwvucontrol
 		networkmanagerapplet
 		brave
-    clash-verge-rev
+    # vscode
+    # clash-verge-rev
   ];
 
   home.sessionVariables = {
@@ -116,6 +117,8 @@ in
     enable = true;
     enableZshIntegration = true;
   };
+
+  home.file.".local/share/fcitx5/rime/default.custom.yaml".source = link "${dotfiles}/rime/default.custom.yaml";
 
   # 配置文件链接
   xdg.configFile = (builtins.mapAttrs (name: value: {
