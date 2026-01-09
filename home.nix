@@ -28,12 +28,8 @@ in
     wlogout
     cliphist
     wl-clipboard
-    hypridle
-    hyprlock
-    hyprpolkitagent
     swaynotificationcenter
     libnotify
-    bibata-cursors
     neovim
     yazi
     lazygit

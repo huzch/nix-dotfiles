@@ -71,6 +71,7 @@
 
   # 图形环境
   programs.niri.enable = true;
+  programs.uwsm.enable = true;
   hardware.graphics = {
     enable = true;
   };
