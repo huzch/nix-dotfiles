@@ -27,10 +27,8 @@
         waylandFrontend = true;
         addons = with pkgs; [
           (fcitx5-rime.override {
-            rimeDataPkgs = [ rime-ice, rime-data ];
+            rimeDataPkgs = [ rime-ice ];
           })
-          librime-lua
-          fcitx5-gtk
           fcitx5-nord
         ];
       };

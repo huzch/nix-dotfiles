@@ -13,7 +13,6 @@ let
     rofi = "rofi";
     swaync = "swaync";
     wlogout = "wlogout";
-    "fcitx5/rime" = "rime"; 
   };
 in
 {
@@ -120,7 +119,7 @@ in
 
   # 配置文件链接
   xdg.configFile = (builtins.mapAttrs (name: value: {
-    source = link "${dotfiles}/${name}";
+    source = link "${dotfiles}/${value}";
     recursive = true;
   }) configs) // {
     "fcitx5/conf/classicui.conf".text = ''
@@ -131,5 +130,9 @@ in
       TrayFont="Inter 12"
       Theme=Nord-Dark
     '';
+  };
+
+  xdg.dataFile = {
+    "fcitx5/rime".source = link "${dotfiles}/fcitx5/rime";
   };
 }
