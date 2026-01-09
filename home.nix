@@ -21,12 +21,12 @@ in
   home.stateVersion = "25.05";
 
   home.packages = with pkgs; [
-		wlogout
     waybar
     rofi
     swww
     mpvpaper
     wlogout
+		wlr-randr
     cliphist
     wl-clipboard
     swaynotificationcenter

@@ -28,13 +28,7 @@
         "on-click-right": "deactivate",
         "on-scroll-up": "mmsg -d viewtoleft_have_client",
         "on-scroll-down": "mmsg -d viewtoright_have_client",
-        "sort-by-id": true,
-        "format-icons": {
-            "1": " ",
-            "2": " ",
-            "3": " ",
-            "4": " "
-        }
+        "sort-by-id": true
     },
     "clock": {
         "format": " {:%H:%M}",
