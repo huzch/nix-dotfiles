@@ -36,6 +36,9 @@ RANDOM_TRANSITION=${TRANSITIONS[$RANDOM % ${#TRANSITIONS[@]}]}
 # 使用 swww 切换静态图片
 swww img "$NEXT_WALLPAPER" --transition-type "$RANDOM_TRANSITION" --transition-fps 60
 
+# 更新缓存文件以便锁屏等程序使用
+cp "$NEXT_WALLPAPER" "$HOME/.cache/current_wallpaper"
+
 # 保存新的索引
 echo "$NEXT_INDEX" > "$STATE_FILE"
 

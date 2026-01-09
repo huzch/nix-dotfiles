@@ -28,9 +28,11 @@ in
     wlogout
 		wlr-randr
 		wlrctl
+		wlopm
     cliphist
     wl-clipboard
     swaylock-effects
+    swayidle
     swaynotificationcenter
     libnotify
     bibata-cursors

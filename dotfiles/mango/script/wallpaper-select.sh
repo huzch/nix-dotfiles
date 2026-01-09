@@ -69,7 +69,7 @@ if [ -n "$SELECTED_PATH" ]; then
     if [ "$PREV_TYPE" != "$CURRENT_TYPE" ]; then
         # 从视频切换到其他类型，需要停止 mpvpaper
         if [ "$PREV_TYPE" = "video" ]; then
-            MONITOR=$(hyprctl monitors | grep -A 1 "^Monitor" | head -n 1 | awk '{print $2}')
+            MONITOR=$(wlr-randr | grep "^[^ ]" | head -n 1 | awk '{print $1}')
             [ -n "$MONITOR" ] && pkill -f "mpvpaper.*$MONITOR" 2>/dev/null
         fi
     fi
@@ -77,7 +77,7 @@ if [ -n "$SELECTED_PATH" ]; then
     # 根据类型应用壁纸
     if [ "$CURRENT_TYPE" = "video" ]; then
         # 自动检测显示器（仅视频需要）
-        MONITOR=$(hyprctl monitors | grep -A 1 "^Monitor" | head -n 1 | awk '{print $2}')
+        MONITOR=$(wlr-randr | grep "^[^ ]" | head -n 1 | awk '{print $1}')
         if [ -z "$MONITOR" ]; then
             notify-send "壁纸切换" "无法检测到显示器"
             exit 1
@@ -97,6 +97,11 @@ if [ -n "$SELECTED_PATH" ]; then
             --transition-type "$RANDOM_TRANSITION" \
             --transition-fps 60
         EFFECT_MSG="效果: $RANDOM_TRANSITION"
+    fi
+    
+    # 更新缓存文件以便锁屏等程序使用
+    if [ "$CURRENT_TYPE" != "video" ]; then
+        cp "$SELECTED_PATH" "$HOME/.cache/current_wallpaper"
     fi
     
     # 保存当前索引和类型
