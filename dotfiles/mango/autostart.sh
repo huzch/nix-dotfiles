@@ -1,6 +1,6 @@
 #!/bin/bash
 
-waybar & swaync & swww-daemon &
+waybar & swaync & swww-daemon & quickshell &
 fcitx5 --replace -d &
 ~/.config/mango/script/idle.sh &
 wl-clip-persist --clipboard regular --reconnect-tries 0 &

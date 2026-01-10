@@ -13,6 +13,7 @@ let
     swaync = "swaync";
     waybar = "waybar";
     wlogout = "wlogout";
+    quickshell = "quickshell";
   };
 in
 {
@@ -21,6 +22,7 @@ in
   home.stateVersion = "25.05";
 
   home.packages = with pkgs; [
+    quickshell # 桌面 Shell 框架
     waybar # 状态栏
     rofi # 应用启动器
     swww # 壁纸管理
