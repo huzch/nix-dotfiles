@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 let
   dotfiles = "${config.home.homeDirectory}/nix-dotfiles/dotfiles";
@@ -10,10 +10,6 @@ let
     mango = "mango";
     nvim = "nvim";
 		rofi = "rofi";
-    swaync = "swaync";
-    waybar = "waybar";
-    wlogout = "wlogout";
-    quickshell = "quickshell";
   };
 in
 {
@@ -22,12 +18,9 @@ in
   home.stateVersion = "25.05";
 
   home.packages = with pkgs; [
-    quickshell # 桌面 Shell 框架
-    waybar # 状态栏
     rofi # 应用启动器
     swww # 壁纸管理
     mpvpaper # 动态壁纸
-    wlogout # 关机菜单
 		wlr-randr # 显示器管理
 		wlrctl # 显示器控制
 		wlopm # 电源管理
@@ -36,9 +29,6 @@ in
     cliphist # 剪贴板管理
     wl-clipboard # 剪贴板工具
     wl-clip-persist # 剪贴板持久化
-    swaylock-effects # 锁屏效果
-    swayidle # 屏幕闲置管理
-    swaynotificationcenter # 通知中心
     libnotify # 通知库
     bibata-cursors # 光标主题
     neovim # 文本编辑器

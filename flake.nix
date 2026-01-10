@@ -15,11 +15,16 @@
       url = "github:DreamMaoMao/mango";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, disko, mango, ... }: {
+  outputs = inputs@{ self, nixpkgs, home-manager, disko, mango, ... }: {
     nixosConfigurations.space = nixpkgs.lib.nixosSystem {
       system = "aarch64-linux";
+      specialArgs = { inherit inputs; };
       modules = [
         ./configuration.nix
         home-manager.nixosModules.home-manager {
@@ -32,6 +37,7 @@
         }
         disko.nixosModules.disko
         mango.nixosModules.mango
+        ./noctalia.nix
       ];
     };
   };

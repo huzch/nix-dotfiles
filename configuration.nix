@@ -71,9 +71,7 @@
 
   # 图形环境
   programs.mango.enable = true;
-  hardware.graphics = {
-    enable = true;
-  };
+  hardware.graphics.enable = true;
 
   # 用户
   programs.zsh.enable = true;
