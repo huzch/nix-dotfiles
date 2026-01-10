@@ -22,7 +22,7 @@
                 id = "WiFi";
               }
               {
-                id = "Bluetooth";
+                id = "MediaMini";
               }
             ];
             center = [
@@ -34,9 +34,16 @@
             ];
             right = [
               {
-                alwaysShowPercentage = false;
-                id = "Battery";
-                warningThreshold = 30;
+                id = "Tray";
+              }
+              {
+                id = "NotificationHistory";
+              }
+              {
+                id = "Volume";
+              }
+              {
+                id = "Brightness";
               }
               {
                 formatHorizontal = "HH:mm";
@@ -48,14 +55,21 @@
             ];
           };
         };
+        ui = {
+          fontDefault = "Inter";
+        };
         colorSchemes.predefinedScheme = "Monochrome";
         general = {
-          avatarImage = "~/wallpapers/space.png";
+          avatarImage = "";
           radiusRatio = 0.2;
         };
         location = {
           monthBeforeDay = true;
           name = "Guangzhou, China";
+        };
+        wallpaper = {
+          enable = true;
+          directory = "~/wallpapers";
         };
       };
     };
