@@ -9,6 +9,7 @@ let
     fastfetch = "fastfetch";
     hypr = "hypr";
     nvim = "nvim";
+    quickshell = "quickshell";
     waybar = "waybar";
     rofi = "rofi";
     swaync = "swaync";
