@@ -24,7 +24,7 @@
 }
 {
     "label" : "lock",
-    "action" : "hyprlock",
+    "action" : "~/.config/hypr/script/lock.sh",
     "text" : "锁定",
     "keybind" : "l"
 }

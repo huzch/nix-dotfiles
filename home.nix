@@ -26,10 +26,15 @@ in
     swww
     mpvpaper
     wlogout
+    grim
+    slurp
     cliphist
     wl-clipboard
-    hypridle
-    hyprlock
+    wl-clip-persist
+    swaylock-effects
+    swayidle
+    # hypridle
+    # hyprlock
     hyprpolkitagent
     swaynotificationcenter
     libnotify
