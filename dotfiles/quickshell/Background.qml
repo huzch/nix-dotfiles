@@ -18,7 +18,7 @@ Item {
         onLongPressed: {
             // Long press wallpaper to open power menu
             var proc = createProcess.createObject(root);
-            proc.command = ["wlogout"];
+            proc.command = ["wlogout", "-b", "5"];
             proc.running = true;
         }
     }

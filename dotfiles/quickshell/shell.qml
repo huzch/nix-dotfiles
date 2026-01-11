@@ -8,38 +8,38 @@ import "./components"
 Item {
     id: root
 
-    PwObjectTracker {
-        objects: [Pipewire.defaultAudioSink]
-    }
+    // PwObjectTracker {
+    //     objects: [Pipewire.defaultAudioSink]
+    // }
 
-    Connections {
-        target: Pipewire.defaultAudioSink ? Pipewire.defaultAudioSink.audio : null
+    // Connections {
+    //     target: Pipewire.defaultAudioSink ? Pipewire.defaultAudioSink.audio : null
 
-        function onVolumesChanged() {
-            if (Pipewire.defaultAudioSink && Pipewire.defaultAudioSink.audio) {
-                volumeOSD.show(Pipewire.defaultAudioSink.audio.volume);
-            }
-        }
+    //     function onVolumesChanged() {
+    //         if (Pipewire.defaultAudioSink && Pipewire.defaultAudioSink.audio) {
+    //             volumeOSD.show(Pipewire.defaultAudioSink.audio.volume);
+    //         }
+    //     }
 
-        function onMutedChanged() {
-            if (Pipewire.defaultAudioSink && Pipewire.defaultAudioSink.audio) {
-                volumeOSD.show(Pipewire.defaultAudioSink.audio.volume);
-            }
-        }
-    }
+    //     function onMutedChanged() {
+    //         if (Pipewire.defaultAudioSink && Pipewire.defaultAudioSink.audio) {
+    //             volumeOSD.show(Pipewire.defaultAudioSink.audio.volume);
+    //         }
+    //     }
+    // }
 
     // Background Layer
     Variants {
         model: Quickshell.screens
         delegate: PanelWindow {
+            property var modelData
+            WlrLayershell.screen: modelData
             WlrLayershell.layer: WlrLayer.Background
             WlrLayershell.namespace: "quickshell-background"
             
-            // Revert back to using screen directly from modelData
-            property var screen: modelData
-            WlrLayershell.screen: screen
-            
             color: "transparent"
+            implicitWidth: 100
+            implicitHeight: 100
 
             anchors {
                 top: true
@@ -53,7 +53,7 @@ Item {
     }
 
     // Volume OSD (Top level overlay)
-    VolumeOSD {
-        id: volumeOSD
-    }
+    // VolumeOSD {
+    //     id: volumeOSD
+    // }
 }
