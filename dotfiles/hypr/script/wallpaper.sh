@@ -46,8 +46,8 @@ apply_wallpaper() {
             local monitor=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .name' 2>/dev/null)
             [ -z "$monitor" ] && monitor="*"
 
-            pkill -f "mpvpaper" 2>/dev/null # 切换视频前先清理之前的多余进程
-            mpvpaper -o "no-audio --loop-file --hwdec=auto" "$monitor" "$wp_path" &
+            swww clear 000000
+            mpvpaper -o "no-audio --loop-file=inf --panscan=1.0 --hwdec=auto" "$monitor" "$wp_path" &
             effect_msg="视频播放"
             ;;
         "gif")
