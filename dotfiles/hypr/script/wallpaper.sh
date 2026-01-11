@@ -43,7 +43,9 @@ apply_wallpaper() {
     local effect_msg=""
     case "$current_type" in
         "video")
-            local monitor=$(wlr-randr | grep "^[^ ]" | head -n 1 | awk '{print $1}')
+            local monitor=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .name' 2>/dev/null)
+            [ -z "$monitor" ] && monitor="*"
+
             pkill -f "mpvpaper" 2>/dev/null # 切换视频前先清理之前的多余进程
             mpvpaper -o "no-audio --loop-file --hwdec=auto" "$monitor" "$wp_path" &
             effect_msg="视频播放"

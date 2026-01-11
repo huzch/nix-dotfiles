@@ -9,12 +9,12 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 echo "==> 1. Running Disko for partitioning and mounting..."
-nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount ./disko.nix
+nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount ./nixos/disko.nix
 echo "==> 2. Generating hardware configuration..."
 nixos-generate-config --no-filesystems --root /mnt
 echo "==> 3. Preparing configuration files..."
 rm /mnt/etc/nixos/configuration.nix
-cp flake.nix flake.lock configuration.nix disko.nix /mnt/etc/nixos/
+cp flake.nix flake.lock ./nixos/configuration.nix ./nixos/disko.nix /mnt/etc/nixos/
 echo "==> 4. Installing NixOS..."
 nixos-install --flake /mnt/etc/nixos#space
 echo "==> 5. Setting user password..."

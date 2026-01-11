@@ -8,7 +8,7 @@
 ```bash
 git clone https://github.com/huzch/nix-dotfiles.git
 cd nix-dotfiles
-vim flake.nix ## comment users.huzch = import ./home.nix;
+vim flake.nix ## comment users.huzch = import ./home;
 sudo ./init.sh
 ```
 NOTE: before execute init.sh, please check username, hostname, disk-type on your own !!!
@@ -18,7 +18,7 @@ git clone https://github.com/huzch/wallpapers.git
 git clone https://github.com/huzch/nix-dotfiles.git
 
 cd nix-dotfiles
-cp /etc/nixos/hardware-configuration.nix .
+cp /etc/nixos/hardware-configuration.nix ./nixos
 sudo git add . ## flake only see added or committed
 
 sudo nixos-rebuild switch --flake ~/nix-dotfiles#space
