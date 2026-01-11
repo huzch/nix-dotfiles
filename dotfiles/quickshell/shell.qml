@@ -32,11 +32,15 @@ Item {
     Variants {
         model: Quickshell.screens
         delegate: PanelWindow {
-            property var screen: modelData
-            
             WlrLayershell.layer: WlrLayer.Background
             WlrLayershell.namespace: "quickshell-background"
             
+            // Revert back to using screen directly from modelData
+            property var screen: modelData
+            WlrLayershell.screen: screen
+            
+            color: "transparent"
+
             anchors {
                 top: true
                 bottom: true

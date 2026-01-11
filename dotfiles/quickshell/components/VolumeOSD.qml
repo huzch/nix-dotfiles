@@ -19,7 +19,8 @@ PanelWindow {
         right: true
     }
     
-    height: 160 // Large enough for the 100 margin + 60 height
+    implicitHeight: 160 // Use implicitHeight to avoid deprecation warning
+    implicitWidth: 100 // Minimal placeholder, anchors will override
     color: "transparent"
     
     visible: shown || content.opacity > 0

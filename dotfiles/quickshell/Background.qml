@@ -7,6 +7,27 @@ Item {
     id: root
     anchors.fill: parent
 
+    // Interactive Area (Gestures)
+    TapHandler {
+        onDoubleTapped: {
+            // Double click wallpaper to open terminal
+            var proc = createProcess.createObject(root);
+            proc.command = ["hyprctl", "dispatch", "exec", "foot"];
+            proc.running = true;
+        }
+        onLongPressed: {
+            // Long press wallpaper to open power menu
+            var proc = createProcess.createObject(root);
+            proc.command = ["wlogout"];
+            proc.running = true;
+        }
+    }
+
+    Component {
+        id: createProcess
+        Process {}
+    }
+
     // Base Wallpaper
     Image {
         anchors.fill: parent
