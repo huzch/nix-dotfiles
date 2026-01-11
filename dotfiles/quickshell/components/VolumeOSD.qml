@@ -34,8 +34,8 @@ PanelWindow {
         anchors.horizontalCenter: parent.horizontalCenter
         color: "#AA000000"
         radius: 10
-        border.color: "#44FFFFFF"
-        border.width: 1
+        border.color: "transparent"
+        border.width: 0
 
         opacity: osd.shown ? 1.0 : 0.0
         Behavior on opacity { NumberAnimation { duration: 200 } }

@@ -39,8 +39,8 @@ Item {
     Visualizer {
         id: visualizer1
         anchors.centerIn: parent
-        width: 830
-        height: 830
+        width: 700
+        height: 700
         out: true
         blurRadius: 10
         opacity: 0.15 
@@ -57,8 +57,8 @@ Item {
     Visualizer {
         id: visualizer2
         anchors.centerIn: parent
-        width: 400
-        height: 400
+        width: 350
+        height: 350
         out: false
         blurRadius: 90
         opacity: 0.8

@@ -7,7 +7,7 @@ Item {
     property int bars: 50
     property bool out: true
     property real blurRadius: 10
-    property color accentColor: "#448AFF" // blueAccent
+    property color accentColor: "#1E4BB1" // Darker blue
     
     // Original math constants from Flutter
     readonly property real a: out ? 2.0 : 1.3
