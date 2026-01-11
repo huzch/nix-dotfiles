@@ -31,10 +31,8 @@ in
     cliphist
     wl-clipboard
     wl-clip-persist
-    swaylock-effects
-    swayidle
     # hypridle
-    # hyprlock
+    hyprlock
     hyprpolkitagent
     swaynotificationcenter
     libnotify
