@@ -15,7 +15,7 @@
 
   outputs = { self, nixpkgs, home-manager, disko, ... }: {
     nixosConfigurations.space = nixpkgs.lib.nixosSystem {
-      system = "aarch64-linux";
+      system = "x86_64-linux";
       modules = [
         ./nixos/configuration.nix
         home-manager.nixosModules.home-manager {

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -7,17 +7,21 @@
   ];
 
   # 引导加载器
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
 
   # 网络
-  networking.hostName = "space";
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "space";
+    networkmanager.enable = true;
+  };
 
   # 时区
   time.timeZone = "Asia/Shanghai";
 
-  # 语言
+  # 语言与输入法
   i18n = {
     defaultLocale = "en_US.UTF-8";
     inputMethod = {
@@ -34,6 +38,8 @@
       };
     };
   };
+
+  # 字体
   fonts = {
     fontDir.enable = true;
     packages = with pkgs; [
@@ -59,24 +65,54 @@
     };
   };
   
-
   # 音视频
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
+    alsa = {
+      enable = true;
+      support32Bit = true;
+    };
     pulse.enable = true;
   };
 
-  # 图形环境
+  # 窗口合成器
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
     withUWSM = true;
   };
-  hardware.graphics = {
-    enable = true;
+
+  # CPU/GPU管理
+  services.thermald.enable = true; # 启用Intel温控服务
+  services.power-profiles-daemon.enable = true; # 电源模式管理
+  services.xserver.videoDrivers = [ "nvidia" ]; # 加载显卡驱动
+  hardware = {
+    graphics = { # 图形加速库
+      enable = true;
+      enable32Bit = true;
+      extraPackages = with pkgs; [
+        intel-media-driver
+        libva-nvidia-driver
+      ];
+    };
+    cpu.intel.updateMicrocode = true; # Intel微码更新
+    nvidia = {
+      modesetting.enable = true;
+      open = false; # 使用闭源驱动
+      nvidiaSettings = true;
+      nvidiaPersistenced = true; # 启用持久守护进程，减少显卡初始化时间
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      powerManagement.enable = true;
+      prime = {
+        offload.enable = false;
+        sync.enable = true;
+
+        # 运行 lspci | grep -E 'VGA|3D' 获取准确的十进制地址
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
+      };
+    };
   };
 
   # 用户
@@ -88,14 +124,27 @@
     shell = pkgs.zsh;
   };
 
-  # 系统软件包
-  nixpkgs.config.allowUnfree = true;
+  # 系统软件包与环境变量
+  nixpkgs.config.allowUnfree = true; # 允许闭源软件
   programs.nix-ld.enable = true; # FHS兼容
-  environment.systemPackages = with pkgs; [
-    vim
-    git
-    wget
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+      vim
+      git
+      wget
+    ];
+    sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+      XDG_SESSION_TYPE = "wayland";
+      # WLR_NO_HARDWARE_CURSORS = "1";
+      # ELECTRON_OZONE_PLATFORM_HINT = "auto";
+      NVD_BACKEND = "direct";
+      LIBVA_DRIVER_NAME = "nvidia";
+      GBM_BACKEND = "nvidia-drm";
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      # AQ_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0";
+    };
+  };
 
   # nix设置
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
