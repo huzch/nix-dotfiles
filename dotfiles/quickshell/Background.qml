@@ -35,12 +35,34 @@ Item {
         fillMode: Image.PreserveAspectCrop
     }
 
+    // Single source of truth for audio data texture
+    Canvas {
+        id: dataTexture
+        width: 50
+        height: 1
+        visible: false
+        renderTarget: Canvas.Image
+        property var audioValues: []
+        
+        onPaint: {
+            var ctx = getContext("2d");
+            for (var i = 0; i < audioValues.length; i++) {
+                ctx.fillStyle = Qt.rgba(audioValues[i], 0, 0, 1);
+                ctx.fillRect(i, 0, 1, 1);
+            }
+        }
+        
+        layer.enabled: true
+        layer.smooth: true
+    }
+
     // Visualizer 1 (Outer - Behind Ring)
     Visualizer {
         id: visualizer1
         anchors.centerIn: parent
         width: 700
         height: 700
+        audioData: dataTexture
         out: true
         blurRadius: 10
         opacity: 0.15 
@@ -59,6 +81,7 @@ Item {
         anchors.centerIn: parent
         width: 350
         height: 350
+        audioData: dataTexture
         out: false
         blurRadius: 90
         opacity: 0.8
@@ -89,9 +112,8 @@ Item {
             onRead: data => {
                 let values = data.split(';').map(v => parseInt(v) / 100.0).filter(v => !isNaN(v));
                 if (values.length >= 50) {
-                    let cleanValues = values.slice(0, 50);
-                    visualizer1.values = cleanValues;
-                    visualizer2.values = cleanValues;
+                    dataTexture.audioValues = values.slice(0, 50);
+                    dataTexture.requestPaint();
                 }
             }
         }

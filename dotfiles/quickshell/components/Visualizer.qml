@@ -1,103 +1,73 @@
 import QtQuick
-import QtQuick.Effects
 
 Item {
     id: root
-    property var values: []
+    property var audioData: null // Pass the data texture here
     property int bars: 50
     property bool out: true
     property real blurRadius: 10
-    property color accentColor: "#1E4BB1" // Darker blue
+    property color accentColor: "#1E4BB1"
     
-    // Original math constants from Flutter
     readonly property real a: out ? 2.0 : 1.3
     readonly property real b: out ? 1.0 : 1.2
     
-    onValuesChanged: canvas.requestPaint()
-
-    Canvas {
-        id: canvas
+    ShaderEffect {
+        id: shader
         anchors.fill: parent
-        renderTarget: Canvas.FramebufferObject
         
-        onPaint: {
-            var ctx = getContext("2d");
-            ctx.reset();
-            
-            if (!values || values.length === 0) return;
+        property var audioData: root.audioData
+        property color accentColor: root.accentColor
+        property real a: root.a
+        property real b: root.b
+        property bool isOut: root.out
+        property real blur: root.blurRadius / 100.0
 
-            var centerX = width / 2;
-            var centerY = height / 2;
-            var baseRadius = Math.min(width, height) / 2.5; // Adjusted to match scale
-            
-            ctx.save();
-            ctx.translate(centerX, centerY);
+        fragmentShader: "
+            varying highp vec2 qt_TexCoord0;
+            uniform highp float qt_Opacity;
+            uniform lowp sampler2D audioData;
+            uniform lowp vec4 accentColor;
+            uniform highp float a;
+            uniform highp float b;
+            uniform bool isOut;
+            uniform highp float blur;
 
-            var points = [];
-            for (var i = 0; i < values.length; i++) {
-                var progress = i / (values.length - 1);
-                var angle = progress * Math.PI * 2 - Math.PI / 2;
+            const float PI = 3.14159265359;
+
+            void main() {
+                vec2 uv = qt_TexCoord0 - 0.5;
+                float dist = length(uv) * 2.1;
+                float angle = atan(uv.y, uv.x) + PI / 2.0;
+                if (angle < 0.0) angle += 2.0 * PI;
                 
-                // Flutter math: length = a * pow(values[i], b)
-                // then end = offset * (1 + length)
-                var val = values[i] || 0;
-                var length = a * Math.pow(val, b);
-                var r = (width / 2) * (1 + (out ? length * 0.2 : -length * 0.3)); // Scaled to fit canvas
-
-                points.push({
-                    x: Math.cos(angle) * r,
-                    y: Math.sin(angle) * r
-                });
-            }
-
-            // Spline path (Quadratic Bezier as in Flutter)
-            function drawSpline(context, pts) {
-                if (pts.length < 3) return;
-                context.beginPath();
-                var mx0 = (pts[0].x + pts[pts.length - 1].x) / 2;
-                var my0 = (pts[0].y + pts[pts.length - 1].y) / 2;
-                context.moveTo(mx0, my0);
-
-                for (var j = 0; j < pts.length; j++) {
-                    var next = (j + 1) % pts.length;
-                    var mx = (pts[j].x + pts[next].x) / 2;
-                    var my = (pts[j].y + pts[next].y) / 2;
-                    context.quadraticCurveTo(pts[j].x, pts[j].y, mx, my);
+                float t = angle / (2.0 * PI);
+                float val = texture2D(audioData, vec2(t, 0.5)).r;
+                
+                float len = a * pow(val, b);
+                float target_r;
+                if (isOut) {
+                    target_r = 0.5 + len * 0.15;
+                } else {
+                    target_r = 0.5 - len * 0.2;
                 }
-                context.closePath();
-            }
 
-            // Gradient stops match background.dart
-            var grad = ctx.createRadialGradient(0, 0, 0, 0, 0, width / 2);
-            grad.addColorStop(0.17, 'transparent');
-            grad.addColorStop(0.57, 'transparent');
-            grad.addColorStop(0.7, Qt.rgba(root.accentColor.r, root.accentColor.g, root.accentColor.b, 0.7));
-            grad.addColorStop(0.8, Qt.rgba(root.accentColor.r, root.accentColor.g, root.accentColor.b, 0.2));
-            
-            ctx.fillStyle = grad;
-            drawSpline(ctx, points);
-            ctx.fill();
-
-            // Handle the second paint path for inner visualizer (out: false)
-            if (!root.out) {
-                var grad2 = ctx.createRadialGradient(0, 0, 0, 0, 0, width / 2);
-                grad2.addColorStop(0.709, 'transparent');
-                grad2.addColorStop(0.71, Qt.rgba(root.accentColor.r, root.accentColor.g, root.accentColor.b, 0.1));
+                float mask = smoothstep(target_r + blur, target_r - blur, dist);
                 
-                ctx.fillStyle = grad2;
-                // Draw same path but with different fill
-                drawSpline(ctx, points);
-                ctx.fill();
+                float g = 0.0;
+                if (isOut) {
+                    if (dist > 0.4 && dist < 1.0) {
+                        if (dist < 0.7) g = mix(0.0, 0.7, (dist - 0.4) / 0.3);
+                        else if (dist < 0.8) g = mix(0.7, 0.2, (dist - 0.7) / 0.1);
+                        else g = mix(0.2, 0.0, (dist - 0.8) / 0.2);
+                    }
+                } else {
+                    if (dist < 0.6) {
+                        g = mix(1.0, 0.0, dist / 0.6);
+                    }
+                }
+
+                gl_FragColor = accentColor * g * mask * qt_Opacity;
             }
-
-            ctx.restore();
-        }
-
-        layer.enabled: true
-        layer.effect: MultiEffect {
-            blurEnabled: root.blurRadius > 0
-            blur: root.blurRadius / 100.0 // Normalize for MultiEffect
-            brightness: 1.1
-        }
+        "
     }
 }
