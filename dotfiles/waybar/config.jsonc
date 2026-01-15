@@ -84,8 +84,8 @@
     },
     "network": {
         "format-wifi": " {essid}",
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
+        "tooltip-format": "{ifname} via {gwaddr}",
+        "format-linked": "{ifname} (No IP)",
         "format-disconnected": "Disconnected ⚠",
         "on-click": "nm-connection-editor"
     },

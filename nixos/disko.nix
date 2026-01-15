@@ -20,7 +20,7 @@
             };
             swap = { # 交换分区
               priority = 2;
-              size = "4G";
+              size = "8G";
               content = {
                 type = "swap";
                 resumeDevice = true; # 启用休眠支持

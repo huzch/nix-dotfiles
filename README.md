@@ -22,7 +22,7 @@ git clone https://github.com/huzch/wallpapers.git
 git clone https://github.com/huzch/nix-dotfiles.git
 
 cd nix-dotfiles
-cp /etc/nixos/hardware-configuration.nix ./nixos
+cp /etc/nixos/nixos/hardware-configuration.nix ./nixos
 sudo git add . ## flake only see added or committed
 
 sudo nixos-rebuild switch --flake ~/nix-dotfiles#space

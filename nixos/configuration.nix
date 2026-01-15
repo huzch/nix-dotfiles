@@ -16,6 +16,7 @@
   networking = {
     hostName = "space";
     networkmanager.enable = true;
+    proxy.default = "http://192.168.24.124:7890";
   };
 
   # 时区
@@ -91,10 +92,10 @@
     graphics = { # 图形加速库
       enable = true;
       enable32Bit = true;
-      extraPackages = with pkgs; [
-        intel-media-driver
-        libva-nvidia-driver
-      ];
+      #extraPackages = with pkgs; [
+      #  intel-media-driver
+      #  libva-nvidia-driver
+      #];
     };
     cpu.intel.updateMicrocode = true; # Intel微码更新
     nvidia = {
@@ -104,14 +105,6 @@
       nvidiaPersistenced = true; # 启用持久守护进程，减少显卡初始化时间
       package = config.boot.kernelPackages.nvidiaPackages.stable;
       powerManagement.enable = true;
-      prime = {
-        offload.enable = false;
-        sync.enable = true;
-
-        # 运行 lspci | grep -E 'VGA|3D' 获取准确的十进制地址
-        intelBusId = "PCI:0:2:0";
-        nvidiaBusId = "PCI:1:0:0";
-      };
     };
   };
 
@@ -142,7 +135,6 @@
       LIBVA_DRIVER_NAME = "nvidia";
       GBM_BACKEND = "nvidia-drm";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-      # AQ_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0";
     };
   };
 

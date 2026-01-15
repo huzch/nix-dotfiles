@@ -14,7 +14,7 @@
     wl-clipboard
     wl-clip-persist
     hyprlock
-    # hypridle
+    hypridle
     hyprpolkitagent
     swaynotificationcenter
     libnotify
@@ -27,7 +27,7 @@
     enable = true;
     settings = {
       main = {
-        font = "JetBrainsMono Nerd Font:size=20, Symbols Nerd Font:size=20";
+        font = "JetBrainsMono Nerd Font:size=18";
         pad = "10x10 center";
       };
       colors = {
