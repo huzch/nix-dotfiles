@@ -17,7 +17,7 @@
         "cpu",
         // "custom/gpu",
         "memory",
-        // "battery",
+        "battery",
         "pulseaudio",
         "network"
     ],
@@ -62,15 +62,13 @@
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
         "format": "{icon} {volume}%",
-        "format-bluetooth": "{icon}{volume}%",
+        "format-bluetooth": "{icon} {volume}%",
         "format-bluetooth-muted": " {icon}",
         "format-muted": " ",
         "format-source": "{volume}%",
         "format-source-muted": "",
         "format-icons": {
             "headphone": "",
-            "hands-free": "",
-            "headset": "",
             "phone": "",
             "portable": "",
             "car": "",

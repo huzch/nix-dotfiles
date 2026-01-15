@@ -77,16 +77,34 @@
     pulse.enable = true;
   };
 
-  # 窗口合成器
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-    withUWSM = true;
-  };
+	# 蓝牙
+	services.blueman.enable = true;
+	hardware.bluetooth = {
+		enable = true;
+		powerOnBoot = true;
+		settings = {
+			General.Experimental = true;
+		};
+	};
+
+	# 电源
+	services.tlp = {
+		enable = true;
+		settings = {
+			START_CHARGE_THRESH_BAT0 = 40;
+			STOP_CHARGE_THRESH_BAT0 = 60;
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
+      CPU_BOOST_ON_AC = 1;
+      CPU_BOOST_ON_BAT = 1;
+      USB_AUTOSUSPEND = 0;
+		};
+	};
 
   # CPU/GPU管理
   services.thermald.enable = true; # 启用Intel温控服务
-  services.power-profiles-daemon.enable = true; # 电源模式管理
   services.xserver.videoDrivers = [ "nvidia" ]; # 加载显卡驱动
   hardware = {
     graphics = { # 图形加速库
@@ -106,6 +124,13 @@
       package = config.boot.kernelPackages.nvidiaPackages.stable;
       powerManagement.enable = true;
     };
+  };
+
+  # 窗口合成器
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+    withUWSM = true;
   };
 
   # 用户
