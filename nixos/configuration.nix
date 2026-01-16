@@ -88,20 +88,7 @@
 	};
 
 	# 电源
-	services.tlp = {
-		enable = true;
-		settings = {
-			START_CHARGE_THRESH_BAT1 = 40;
-			STOP_CHARGE_THRESH_BAT1 = 60;
-      CPU_SCALING_GOVERNOR_ON_AC = "performance";
-      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-      CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
-      CPU_BOOST_ON_AC = 1;
-      CPU_BOOST_ON_BAT = 1;
-      USB_AUTOSUSPEND = 0;
-		};
-	};
+	services.power-profiles-daemon.enable = true;
 
   # CPU/GPU管理
   services.thermald.enable = true; # 启用Intel温控服务
@@ -110,10 +97,9 @@
     graphics = { # 图形加速库
       enable = true;
       enable32Bit = true;
-      #extraPackages = with pkgs; [
-      #  intel-media-driver
-      #  libva-nvidia-driver
-      #];
+      extraPackages = with pkgs; [
+				nvidia-vaapi-driver
+      ];
     };
     cpu.intel.updateMicrocode = true; # Intel微码更新
     nvidia = {
@@ -138,7 +124,7 @@
   services.getty.autologinUser = "huzch";
   users.users.huzch = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "video" "audio" ];
+    extraGroups = [ "wheel" "networkmanager" "video" "audio" "render" ];
     shell = pkgs.zsh;
   };
 
