@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # 配置
-WALLPAPER_DIR="$HOME/wallpapers"
+WALLPAPER_DIR="$HOME/Documents/wallpapers"
 CACHE_DIR="$HOME/.cache"
 STATE_FILE="$CACHE_DIR/current_wallpaper_index"
 TYPE_FILE="$CACHE_DIR/current_wallpaper_type"

@@ -87,10 +87,13 @@
 		};
 	};
 
+  # 磁盘
+  services.udisks2.enable = true;
+
 	# 电源
 	services.power-profiles-daemon.enable = true;
 
-  # CPU/GPU管理
+  # CPU/GPU
   services.thermald.enable = true; # 启用Intel温控服务
   services.xserver.videoDrivers = [ "nvidia" ]; # 加载显卡驱动
   hardware = {

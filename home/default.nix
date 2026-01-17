@@ -14,6 +14,7 @@ let
     rofi = "rofi";
     swaync = "swaync";
     wlogout = "wlogout";
+    yazi = "yazi";
   };
 in
 {
@@ -30,8 +31,8 @@ in
   home.file.".local/share/fcitx5/rime/default.custom.yaml".source = link "${dotfiles}/rime/default.custom.yaml";
 
   # 配置文件链接
-  xdg.configFile = (builtins.mapAttrs (name: value: {
+  xdg.configFile = builtins.mapAttrs (name: value: {
     source = link "${dotfiles}/${value}";
     recursive = true;
-  }) configs);
+  }) configs;
 }

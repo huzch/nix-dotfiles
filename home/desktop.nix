@@ -6,6 +6,8 @@
     waybar
     rofi
     swww
+		imv
+		mpv
     mpvpaper
 		wf-recorder
     grim
@@ -22,6 +24,7 @@
     bibata-cursors
     pwvucontrol
     networkmanagerapplet
+    udiskie
   ];
 
   programs.foot = {

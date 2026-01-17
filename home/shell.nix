@@ -2,7 +2,13 @@
 
 {
   home.packages = with pkgs; [
+		gcc
+		cmake
+		ninja
+		clang-tools
+		pkg-config
     jq
+		cava
     yazi
     neovim
     lazygit
