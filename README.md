@@ -18,14 +18,16 @@ WARN: before execute init.sh, please check these things on your own !!!
 4. home/default.nix : username + userdirectory
 ### 2. NixOS
 ```bash
-git clone https://github.com/huzch/wallpapers.git
+mkdir -p ~/Documents && cd ~/Documents
 git clone https://github.com/huzch/nix-dotfiles.git
+mkdir -p ~/Pictures && cd ~/Pictures
+git clone https://github.com/huzch/wallpapers.git
 
-cd nix-dotfiles
+cd ~/Documents/nix-dotfiles
 cp /etc/nixos/nixos/hardware-configuration.nix ./nixos
-sudo git add . ## flake only see added or committed
+git add . ## flake only see added or committed
 
-sudo nixos-rebuild switch --flake ~/nix-dotfiles#space
+sudo nixos-rebuild switch --flake ~/Documents/nix-dotfiles#space
 ```
 
 ## TODO

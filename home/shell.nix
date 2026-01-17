@@ -48,7 +48,7 @@
       lg = "lazygit";
       ff = "fastfetch";
       vim = "nvim";
-      nrs = "sudo nixos-rebuild switch --flake ~/nix-dotfiles#space";
+      nrs = "sudo nixos-rebuild switch --flake ~/Documents/nix-dotfiles#space";
     };
 
     history = {

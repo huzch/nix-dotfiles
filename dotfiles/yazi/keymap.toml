@@ -126,10 +126,9 @@ keymap = [
 	# Goto
 	{ on = [ "g", "h" ],       run = "cd ~",                desc = "Go home" },
 	{ on = [ "g", "c" ],       run = "cd ~/.config",        desc = "Go ~/.config" },
-	{ on = [ "g", "d" ],       run = "cd ~/Downloads",      desc = "Go ~/Downloads" },
-	{ on = [ "g", "m" ],       run = "cd /run/media/huzch", desc = "Go to /run/media/huzch" },
-	{ on = [ "g", "<Space>" ], run = "cd --interactive",    desc = "Jump interactively" },
-	{ on = [ "g", "f" ],       run = "follow",              desc = "Follow hovered symlink" },
+	{ on = [ "g", "n" ],       run = "cd ~/Documents/nix-dotfiles",      desc = "Go nix-dotfiles" },
+	{ on = [ "g", "o" ],       run = "cd ~/Documents/OI",      desc = "Go OI" },
+	{ on = [ "g", "m" ],       run = "cd /run/media/huzch", desc = "Go /run/media/huzch" },
 
 	# Tabs
 	{ on = "t", run = "tab_create --current", desc = "Create a new tab with CWD" },

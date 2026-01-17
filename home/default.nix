@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  dotfiles = "${config.home.homeDirectory}/nix-dotfiles/dotfiles";
+  dotfiles = "${config.home.homeDirectory}/Documents/nix-dotfiles/dotfiles";
   link = path: config.lib.file.mkOutOfStoreSymlink path;
 
   configs = {
