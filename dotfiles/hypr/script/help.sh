@@ -23,6 +23,8 @@ Alt + N                    通知中心
 Alt + V                    剪贴板历史
 Alt + P                    全屏截图
 Alt + Shift + P            区域截图
+Alt + P                    全屏录制
+Alt + Shift + P            区域录制
 Alt + W                    壁纸循环
 Alt + Shift + W            选择壁纸
 Alt + /                    显示快捷键

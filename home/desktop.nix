@@ -7,12 +7,13 @@
     rofi
     swww
     mpvpaper
-    wlogout
+		wf-recorder
     grim
     slurp
     cliphist
     wl-clipboard
     wl-clip-persist
+    wlogout
     hyprlock
     hypridle
     hyprpolkitagent
