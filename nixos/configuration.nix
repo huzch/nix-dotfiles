@@ -16,7 +16,8 @@
   networking = {
     hostName = "space";
     networkmanager.enable = true;
-    proxy.default = "http://192.168.24.124:7890";
+    # proxy.default = "http://192.168.8.236:7890";
+    proxy.default = "http://127.0.0.1:7897";
   };
 
   # 时区

@@ -6,6 +6,6 @@
 		steam
     vscode
     wechat
-    clash-verge-rev
+		clash-verge-rev
   ];
 }
