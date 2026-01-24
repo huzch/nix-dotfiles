@@ -55,14 +55,10 @@
     fontconfig = {
       enable = true;
       defaultFonts = {
-        # 无衬线字体 (UI, 网页)
-        sansSerif = [ "Inter" "Noto Sans CJK SC" "Noto Sans CJK TC" ];
-        # 衬线字体 (文档阅读)
-        serif = [ "Noto Serif" "Noto Serif CJK SC" "Noto Serif CJK TC" ];
-        # 等宽字体 (终端, 代码)
-        monospace = [ "JetBrainsMono Nerd Font" "Noto Sans Mono CJK SC" ];
-        # Emoji
-        emoji = [ "Noto Color Emoji" ];
+        sansSerif = [ "Inter" "Noto Sans CJK SC" "Noto Sans CJK TC" ]; # 无衬线字体 (UI, 网页)
+        serif = [ "Noto Serif" "Noto Serif CJK SC" "Noto Serif CJK TC" ]; # 衬线字体 (文档阅读)
+        monospace = [ "JetBrainsMono Nerd Font" "Noto Sans Mono CJK SC" ]; # 等宽字体 (终端, 代码)
+        emoji = [ "Noto Color Emoji" ]; # Emoji
       };
     };
   };

@@ -6,6 +6,8 @@
 		steam
     vscode
     wechat
+		typora
+    obs-studio
 		clash-verge-rev
   ];
 }
