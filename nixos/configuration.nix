@@ -7,9 +7,12 @@
   ];
 
   # 引导加载器
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   # 网络
@@ -17,7 +20,7 @@
     hostName = "space";
     networkmanager.enable = true;
     # proxy.default = "http://192.168.8.236:7890";
-    proxy.default = "http://127.0.0.1:7897";
+    # proxy.default = "http://127.0.0.1:7897";
   };
 
   # 时区
@@ -74,40 +77,40 @@
     pulse.enable = true;
   };
 
-	# 蓝牙
-	services.blueman.enable = true;
-	hardware.bluetooth = {
-		enable = true;
-		powerOnBoot = true;
-		settings = {
-			General.Experimental = true;
-		};
-	};
+  # 蓝牙
+  services.blueman.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General.Experimental = true;
+    };
+  };
 
   # 磁盘
   services.udisks2.enable = true;
 
-	# 电源
-	services.power-profiles-daemon.enable = true;
+  # 电源
+  services.power-profiles-daemon.enable = true;
 
   # CPU/GPU
-  services.thermald.enable = true; # 启用Intel温控服务
   services.xserver.videoDrivers = [ "nvidia" ]; # 加载显卡驱动
   hardware = {
+    enableRedistributableFirmware = true;
     graphics = { # 图形加速库
       enable = true;
       enable32Bit = true;
       extraPackages = with pkgs; [
-				nvidia-vaapi-driver
+        nvidia-vaapi-driver
       ];
     };
-    cpu.intel.updateMicrocode = true; # Intel微码更新
+    cpu.amd.updateMicrocode = true; # AMD微码更新
     nvidia = {
       modesetting.enable = true;
-      open = false; # 使用闭源驱动
+      open = true; # RTX 50/Blackwell 需要开源内核模块
       nvidiaSettings = true;
       nvidiaPersistenced = true; # 启用持久守护进程，减少显卡初始化时间
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
       powerManagement.enable = true;
     };
   };

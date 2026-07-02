@@ -3,11 +3,10 @@
 {
   home.packages = with pkgs; [
     brave
-		steam
-    vscode
+    steam
     wechat
-		typora
-    obs-studio
-		clash-verge-rev
+    # typora
+    # obs-studio
+    clash-verge-rev
   ];
 }

@@ -37,7 +37,7 @@ nixosConfigurations = {
 
 ### 3. 系统级配置 (`nixos/configuration.nix`)
 这里设置你的主机名、时区、以及是否开启显卡/硬件加速等系统级功能。
-当前配置默认是针对 **Intel CPU + Nvidia GPU** 的环境。如果你使用的是其他硬件，请按照以下说明进行修改：
+当前配置默认是针对 **AMD CPU + Nvidia GPU** 的环境。如果你使用的是其他硬件，请按照以下说明进行修改：
 
 ```nix
 # nixos/configuration.nix 示例：
@@ -45,8 +45,8 @@ networking.hostName = "space"; # 这个名字需要和 flake.nix 里的配置名
 
 # --- 硬件与驱动配置说明 ---
 # 1. CPU 微代码更新 (根据你的 CPU 选择其一，注释掉另一个)
-hardware.cpu.intel.updateMicrocode = true; # 如果是 Intel CPU
-# hardware.cpu.amd.updateMicrocode = true; # 如果是 AMD CPU，请取消这行注释并注释掉上一行
+hardware.cpu.amd.updateMicrocode = true; # 如果是 AMD CPU
+# hardware.cpu.intel.updateMicrocode = true; # 如果是 Intel CPU，请取消这行注释并注释掉上一行
 
 # 2. 显卡驱动配置
 # 默认配置适用于 Nvidia 独显。如果你使用的是 AMD 显卡或核显，请调整对应的驱动设置：

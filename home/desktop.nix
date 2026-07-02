@@ -6,10 +6,10 @@
     waybar
     rofi
     swww
-		imv
-		mpv
+    imv
+    mpv
     mpvpaper
-		wf-recorder
+    wf-recorder
     grim
     slurp
     cliphist

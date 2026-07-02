@@ -2,14 +2,6 @@
 
 {
   home.packages = with pkgs; [
-		poppler-utils
-		gcc
-		cmake
-		ninja
-		clang-tools
-		pkg-config
-    jq
-		cava
     yazi
     neovim
     lazygit
