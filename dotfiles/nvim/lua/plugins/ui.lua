@@ -1,13 +1,29 @@
 return {
 	{
-		"folke/tokyonight.nvim"
+		"catppuccin/nvim",
+		name = "catppuccin",
+		priority = 1000,
+		config = function()
+			require("catppuccin").setup({
+				flavour = "macchiato",
+			})
+
+			vim.cmd.colorscheme("catppuccin")
+		end,
 	},
 
 	{
-		'itchyny/lightline.vim',
+		'nvim-lualine/lualine.nvim',
+		dependencies = { 'nvim-tree/nvim-web-devicons' },
 		config = function()
-			vim.cmd('colorscheme tokyonight')
-		end
+			require('lualine').setup({
+				options = {
+					theme = 'auto',
+					-- section_separators = { left = '', right = '' },
+					-- component_separators = { left = '', right = '' },
+				},
+			})
+		end,
 	},
 
 	{
@@ -55,6 +71,12 @@ return {
 	},
 
 	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		opts = {},
+	},
+
+	{
 		'akinsho/toggleterm.nvim',
 		event = "VeryLazy",
 		version = "*",
@@ -79,31 +101,20 @@ return {
 		end
 	},
 
-	-- {
-	-- 	"nvim-tree/nvim-web-devicons",
-	-- 	opts = {} 
-	-- },
-
-	-- {
-	-- 	'nvim-tree/nvim-tree.lua',
-	-- 	keys = {
-	-- 		{ "<leader>nt", ":NvimTreeToggle<CR>",   desc = "Toggle NvimTree" },
-	-- 		{ "<leader>nf", ":NvimTreeFindFile<CR>", desc = "Find current file in NvimTree" },
-	-- 	},
-	-- 	config = function()
-	-- 		require("nvim-tree").setup({
-	-- 			filters = { dotfiles = true },
-	-- 			git = { ignore = true },
-	-- 			update_focused_file = { enable = true, update_cwd = true },
-	-- 			renderer = {
-	-- 				icons = {
-	-- 					show = { git = false, folder = false, file = false, folder_arrow = true },
-	-- 					glyphs = {
-	-- 						folder = { arrow_closed = "▸", arrow_open = "▾" },
-	-- 					},
-	-- 				},
-	-- 			},
-	-- 		})
-	-- 	end
-	-- },
+	{
+		"kdheepak/lazygit.nvim",
+		cmd = {
+			"LazyGit",
+			"LazyGitConfig",
+			"LazyGitCurrentFile",
+			"LazyGitFilter",
+			"LazyGitFilterCurrentFile",
+		},
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		keys = {
+			{ "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+		},
+	},
 }
