@@ -2,8 +2,16 @@
 
 set -e # 遇到错误立即停止
 
+USER_NAME="huzch"
+HOST_NAME="space"
+USER_HOME="/mnt/home/${USER_NAME}"
+USER_DOCS="${USER_HOME}/Documents"
+USER_PICTURES="${USER_HOME}/Pictures"
+DOTFILES_TARGET="${USER_DOCS}/nix-dotfiles"
+WALLPAPERS_TARGET="${USER_PICTURES}/wallpapers"
+
 # 检查是否为 root
-if [ "$EUID" -ne 0 ]; then
+if [ "$(id -u)" -ne 0 ]; then
   echo "please run in root (sudo $0)"
   exit 1
 fi
@@ -16,9 +24,14 @@ echo "==> 2. Generating hardware configuration..."
 nixos-generate-config --no-filesystems --root /mnt
 echo "==> 3. Preparing configuration files..."
 cp /mnt/etc/nixos/hardware-configuration.nix ./nixos/
-cp -r flake.* ./nixos/ /mnt/etc/nixos/
+cp -r flake.* ./nixos/ ./home/ ./dotfiles/ /mnt/etc/nixos/
 echo "==> 4. Installing NixOS..."
-nixos-install --flake /mnt/etc/nixos#space
-echo "==> 5. Setting user password..."
-nixos-enter --root /mnt -c 'passwd huzch'
+nixos-install --flake "/mnt/etc/nixos#${HOST_NAME}"
+echo "==> 5. Preparing user files..."
+mkdir -p "${USER_DOCS}" "${USER_PICTURES}"
+cp -a . "${DOTFILES_TARGET}"
+git clone https://github.com/huzch/wallpapers.git "${WALLPAPERS_TARGET}"
+nixos-enter --root /mnt -c "chown -R ${USER_NAME}:users /home/${USER_NAME}/Documents /home/${USER_NAME}/Pictures"
+echo "==> 6. Setting user password..."
+nixos-enter --root /mnt -c "passwd ${USER_NAME}"
 echo "==> Installation complete! Please remove the installation media and reboot."

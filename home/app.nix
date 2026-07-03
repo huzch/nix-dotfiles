@@ -4,7 +4,7 @@
   home.packages = with pkgs; [
     brave
     steam
-    wechat
+    # wechat
     # typora
     # obs-studio
     clash-verge-rev

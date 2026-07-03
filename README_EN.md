@@ -3,13 +3,14 @@
 <!-- To add screenshots: Create an issue, drag & drop your images, then copy the generated URL here -->
 
 ## Quick Start
-> Due to soft-link problem, we need two step to set up nix-dotfiles.
-### 1. Live ISO
+> Dotfiles are built directly into the Nix configuration. The install script also prepares `~/Documents/nix-dotfiles` and `~/Pictures/wallpapers` in the new system.
+
+### Live ISO
 ```bash
+sudo -i
 git clone https://github.com/huzch/nix-dotfiles.git
 cd nix-dotfiles
-vim flake.nix ## comment users.huzch = import ./home;
-sudo ./init.sh
+./init.sh
 ```
 WARN: before execute init.sh, please check these things on your own !!!
 1. disko.nix : disk-type
@@ -17,22 +18,9 @@ WARN: before execute init.sh, please check these things on your own !!!
 3. configuration.nix : hostname + cpu/gpu-setting
 4. home/default.nix : username + userdirectory
 5. init.sh : username + hostname
-### 2. NixOS
-```bash
-mkdir -p ~/Documents && cd ~/Documents
-git clone https://github.com/huzch/nix-dotfiles.git
-mkdir -p ~/Pictures && cd ~/Pictures
-git clone https://github.com/huzch/wallpapers.git
-
-cd ~/Documents/nix-dotfiles
-cp /etc/nixos/nixos/hardware-configuration.nix ./nixos
-git add . ## flake only see added or committed
-
-sudo nixos-rebuild switch --flake ~/Documents/nix-dotfiles#space
-```
 
 ### 💡 Lost? Check the shortcuts help
-After applying the system configuration and entering the desktop, you can press **`Super (Windows key) + /`** at any time to summon the shortcuts help panel. It lists all the basic operation shortcuts (such as opening the terminal, full-screening, switching workspaces, etc.) to help you quickly get started with the new system!
+After applying the system configuration and entering the desktop, you can press **`Alt + /`** at any time to summon the shortcuts help panel. It lists all the basic operation shortcuts (such as opening the terminal, full-screening, switching workspaces, etc.) to help you quickly get started with the new system!
 
 ## TODO
 ### Component

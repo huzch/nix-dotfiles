@@ -1,8 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  dotfiles = "${config.home.homeDirectory}/Documents/nix-dotfiles/dotfiles";
-  link = path: config.lib.file.mkOutOfStoreSymlink path;
+  dotfiles = ../dotfiles;
 
   configs = {
     color = "color";
@@ -28,11 +27,11 @@ in
   home.homeDirectory = "/home/huzch";
   home.stateVersion = "25.05";
 
-  home.file.".local/share/fcitx5/rime/default.custom.yaml".source = link "${dotfiles}/rime/default.custom.yaml";
+  home.file.".local/share/fcitx5/rime/default.custom.yaml".source = "${dotfiles}/rime/default.custom.yaml";
 
-  # 配置文件链接
+  # 配置文件
   xdg.configFile = builtins.mapAttrs (name: value: {
-    source = link "${dotfiles}/${value}";
+    source = "${dotfiles}/${value}";
     recursive = true;
   }) configs;
 }
