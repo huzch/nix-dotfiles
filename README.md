@@ -28,14 +28,14 @@ CPU=amd
 
 | 优先级 | 配置项 | 风险 | 需要确认的事 |
 | --- | --- | --- | --- |
-| P0 | `DISK` | 会决定哪块磁盘被重新分区和格式化，填错会清空错误磁盘。 | 在 Live ISO 中运行 `lsblk`，确认目标盘不是 U 盘、移动硬盘或存有重要数据的硬盘。 |
+| P0 | `DISK` | 会决定哪块磁盘被重新分区和格式化，填错会清空错误磁盘。 | 在 Live ISO 中运行 `lsblk`，确认目标盘不是 U 盘、移动硬盘或存有重要数据的硬盘。安装脚本会要求输入 `ERASE <disk>` 才继续。 |
 | P1 | `USER_NAME` | 影响系统用户、Home Manager、自动登录、密码设置和用户目录。填错通常会导致安装后登录或路径异常。 | 使用你准备长期使用的 Linux 用户名，建议只用小写字母、数字、`-` 或 `_`。 |
 | P1 | `GPU` | 影响图形驱动和桌面启动。显卡配置不匹配时，常见结果是黑屏、无法进入桌面或硬件加速异常。 | 当前默认偏向 Nvidia 独显；AMD/Intel 核显用户先修改 `nixos/host.nix` 中的 `gpu`。 |
 | P2 | `CPU` | 主要影响微码和少量硬件适配。填错通常不如磁盘和显卡严重，但不建议忽略。 | 当前默认是 `amd`；Intel 用户修改 `nixos/host.nix` 中的 `cpu`。 |
 | P2 | `HOST_NAME` | 影响 flake 配置名、系统主机名和后续 rebuild 命令。填错一般可修，但会增加排错成本。 | 在 `nixos/host.nix` 中设置后，相关 NixOS 和 Home Manager 配置会自动引用它。 |
 
 ### 对应修改位置
-- `DISK`: 修改 `nixos/disko.nix` 中的 `device`。
+- `DISK`: 修改 `nixos/host.nix` 中的 `disk`。
 - `USER_NAME`: 修改 `nixos/host.nix` 中的 `userName`。
 - `HOST_NAME`: 修改 `nixos/host.nix` 中的 `hostName`。
 - `GPU`: 修改 `nixos/host.nix` 中的 `gpu`，可选值建议保持为 `nvidia`、`amd` 或 `intel`。
@@ -75,11 +75,16 @@ git clone https://github.com/huzch/nix-dotfiles.git
 cd nix-dotfiles
 ```
 2. **停止并检查：** 确保你已经完成了上一节“五项确认”中的配置修改，尤其是用户名、主机名、磁盘、CPU/GPU 和代理设置。
-3. 确认无误后，执行一键安装脚本：
+3. 确认无误后，执行一键安装脚本。脚本会打印安装摘要和 `lsblk` 输出，并要求你输入 `ERASE <disk>` 后才会格式化磁盘：
 ```bash
 ./init.sh
 ```
 等待安装完成并重启你的电脑。脚本会在新系统中准备好 `~/Documents/nix-dotfiles` 和 `~/Pictures/wallpapers`，首次启动后无需再手动 clone。
+
+安装脚本支持断点重试。每个关键步骤成功后会在 `/mnt/var/lib/nix-dotfiles-install-state` 写入状态；如果中途因为网络或其他原因失败，再次运行 `./init.sh` 会跳过已经完成的步骤。需要从头清空状态时使用：
+```bash
+./init.sh --reset
+```
 
 ### 💡 快捷键帮助
 应用系统配置并进入桌面后，你可以随时按下 **`Alt + /`** 召唤出快捷键帮助面板。里面列出了所有常用的基础操作快捷键（如打开终端、全屏、切换工作区等），以便随时查阅，帮助你快速上手新系统！
@@ -91,7 +96,7 @@ cd nix-dotfiles
 - **`flake.nix`**: 整个系统的总入口点。存放了系统的所有依赖记录以及主机的基本配置声明。
 - **`nixos/`**: 存放**系统级**配置和底层设置。
   - `configuration.nix`: 系统核心组件、驱动、网络、字体等基础设置。
-  - `host.nix`: 当前机器的用户名、主机名、CPU 和 GPU 类型。
+  - `host.nix`: 当前机器的用户名、主机名、磁盘、CPU 和 GPU 类型。
   - `hardware-configuration.nix`: 安装时生成的用于描述你电脑硬盘挂载和硬件内核模块的文件（每台电脑都不一样，必须用你自己的）。
   - `disko.nix`: 定义硬盘的自动分区规则。
 - **`home/`**: 存放基于 `Home Manager` 的**用户级**环境配置（无需 root 即可作用于该用户）。

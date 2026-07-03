@@ -1,8 +1,10 @@
+{ disk ? (import ./host.nix).disk, ... }:
+
 {
   disko.devices = {
     disk = { # 物理磁盘设备
       main = { # 主磁盘
-        device = "/dev/nvme0n1"; # /dev/sda 或 /dev/nvme0n1 等
+        device = disk; # /dev/sda 或 /dev/nvme0n1 等
         type = "disk";
         content = {
           type = "gpt";
