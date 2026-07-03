@@ -1,4 +1,4 @@
-{ config, pkgs, userName, hostName, ... }:
+{ config, pkgs, userName, userEmail, hostName, ... }:
 
 {
   home.packages = with pkgs; [
@@ -18,7 +18,7 @@
     enable = true;
     settings.user = {
       name = userName;
-      email = "huzch123@gmail.com";
+      email = userEmail;
     };
   };
 

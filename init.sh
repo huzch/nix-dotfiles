@@ -2,16 +2,17 @@
 
 set -e # 遇到错误立即停止
 
-USER_NAME="$(sed -n 's/.*userName = "\(.*\)";.*/\1/p' nixos/host.nix)"
-HOST_NAME="$(sed -n 's/.*hostName = "\(.*\)";.*/\1/p' nixos/host.nix)"
-DISK="$(sed -n 's/.*disk = "\(.*\)";.*/\1/p' nixos/host.nix)"
-CPU="$(sed -n 's/.*cpu = "\(.*\)";.*/\1/p' nixos/host.nix)"
-GPU="$(sed -n 's/.*gpu = "\(.*\)";.*/\1/p' nixos/host.nix)"
-USER_HOME="/mnt/home/${USER_NAME}"
-USER_DOCS="${USER_HOME}/Documents"
-USER_PICTURES="${USER_HOME}/Pictures"
-DOTFILES_TARGET="${USER_DOCS}/nix-dotfiles"
-WALLPAPERS_TARGET="${USER_PICTURES}/wallpapers"
+USER_NAME=""
+USER_EMAIL=""
+HOST_NAME=""
+DISK=""
+CPU=""
+GPU=""
+USER_HOME=""
+USER_DOCS=""
+USER_PICTURES=""
+DOTFILES_TARGET=""
+WALLPAPERS_TARGET=""
 STATE_DIR="/mnt/var/lib/nix-dotfiles-install-state"
 RESET_STATE=0
 
@@ -62,9 +63,109 @@ run_always() {
   "$@"
 }
 
+read_host_config() {
+  USER_NAME="$(sed -n 's/.*userName = "\(.*\)";.*/\1/p' nixos/host.nix)"
+  USER_EMAIL="$(sed -n 's/.*userEmail = "\(.*\)";.*/\1/p' nixos/host.nix)"
+  HOST_NAME="$(sed -n 's/.*hostName = "\(.*\)";.*/\1/p' nixos/host.nix)"
+  DISK="$(sed -n 's/.*disk = "\(.*\)";.*/\1/p' nixos/host.nix)"
+  CPU="$(sed -n 's/.*cpu = "\(.*\)";.*/\1/p' nixos/host.nix)"
+  GPU="$(sed -n 's/.*gpu = "\(.*\)";.*/\1/p' nixos/host.nix)"
+}
+
+set_user_paths() {
+  USER_HOME="/mnt/home/${USER_NAME}"
+  USER_DOCS="${USER_HOME}/Documents"
+  USER_PICTURES="${USER_HOME}/Pictures"
+  DOTFILES_TARGET="${USER_DOCS}/nix-dotfiles"
+  WALLPAPERS_TARGET="${USER_PICTURES}/wallpapers"
+}
+
+prompt_value() {
+  label="$1"
+  current="$2"
+  options="${3:-}"
+
+  if [ -n "${options}" ]; then
+    printf '%s (%s) [%s]: ' "${label}" "${options}" "${current}" >&2
+  else
+    printf '%s [%s]: ' "${label}" "${current}" >&2
+  fi
+
+  read -r value
+  if [ -n "${value}" ]; then
+    printf '%s' "${value}"
+  else
+    printf '%s' "${current}"
+  fi
+}
+
+validate_user_name() {
+  case "$1" in
+    "" | *[!a-z0-9_-]* | [!a-z_]*)
+      echo "invalid userName: $1"
+      echo "use lowercase letters, digits, '_' or '-', and start with a letter or '_'."
+      exit 1
+      ;;
+  esac
+}
+
+validate_host_name() {
+  case "$1" in
+    "" | *[!A-Za-z0-9-]* | -* | *-)
+      echo "invalid hostName: $1"
+      echo "use letters, digits or '-', and do not start/end with '-'."
+      exit 1
+      ;;
+  esac
+}
+
+validate_choice() {
+  value="$1"
+  choices="$2"
+  label="$3"
+
+  for choice in ${choices}; do
+    if [ "${value}" = "${choice}" ]; then
+      return 0
+    fi
+  done
+
+  echo "invalid ${label}: ${value}"
+  echo "valid values: ${choices}"
+  exit 1
+}
+
+ask_host_config() {
+  echo "==> Configure host"
+  USER_NAME="$(prompt_value "User name" "${USER_NAME}")"
+  USER_EMAIL="$(prompt_value "User email" "${USER_EMAIL}")"
+  HOST_NAME="$(prompt_value "Host name" "${HOST_NAME}")"
+  DISK="$(prompt_value "Target disk" "${DISK}")"
+  CPU="$(prompt_value "CPU" "${CPU}" "amd/intel")"
+  GPU="$(prompt_value "GPU" "${GPU}" "nvidia/amd/intel/none")"
+
+  validate_user_name "${USER_NAME}"
+  validate_host_name "${HOST_NAME}"
+  validate_choice "${CPU}" "amd intel" "cpu"
+  validate_choice "${GPU}" "nvidia amd intel none" "gpu"
+}
+
+write_host_config() {
+  cat > nixos/host.nix <<EOF
+{
+  userName = "${USER_NAME}";
+  userEmail = "${USER_EMAIL}";
+  hostName = "${HOST_NAME}";
+  disk = "${DISK}";
+  cpu = "${CPU}";
+  gpu = "${GPU}";
+}
+EOF
+}
+
 validate_config() {
-  if [ -z "${USER_NAME}" ] || [ -z "${HOST_NAME}" ] || [ -z "${DISK}" ] || [ -z "${CPU}" ] || [ -z "${GPU}" ]; then
-    echo "failed to read userName, hostName, disk, cpu, or gpu from nixos/host.nix"
+  if [ -z "${USER_NAME}" ] || [ -z "${USER_EMAIL}" ] || [ -z "${HOST_NAME}" ] || [ -z "${DISK}" ] || [ -z "${CPU}" ] || [ -z "${GPU}" ]; then
+    echo "failed to read userName, userEmail, hostName, disk, cpu, or gpu from nixos/host.nix"
     exit 1
   fi
 
@@ -83,6 +184,7 @@ validate_config() {
 confirm_disko() {
   echo "==> Install summary"
   echo "    User: ${USER_NAME}"
+  echo "    Mail: ${USER_EMAIL}"
   echo "    Host: ${HOST_NAME}"
   echo "    Disk: ${DISK}"
   echo "    CPU : ${CPU}"
@@ -145,6 +247,10 @@ prepare_user_files() {
   nixos-enter --root /mnt -c "chown -R ${USER_NAME}:users /home/${USER_NAME}/Documents /home/${USER_NAME}/Pictures"
 }
 
+read_host_config
+ask_host_config
+write_host_config
+set_user_paths
 validate_config
 run_disko
 run_once "02-hardware" "2. Generating hardware configuration..." generate_hardware_config

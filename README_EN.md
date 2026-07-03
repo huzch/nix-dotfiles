@@ -15,33 +15,8 @@ This repository is therefore not trying to be a universal installer for every ma
 
 ---
 
-## ⚠️ Check These Five Items Before Installing
-This configuration can partition disks, install NixOS, and apply user-level dotfiles automatically. That is convenient, but a wrong value can have a direct impact. Review the items below in order before running the install script.
-
-```bash
-USER_NAME=xxx
-HOST_NAME=xxx
-DISK=/dev/nvme0n1
-GPU=nvidia
-CPU=amd
-```
-
-| Priority | Item | Risk | What to verify |
-| --- | --- | --- | --- |
-| P0 | `DISK` | Selects the disk that will be repartitioned and formatted. A wrong value can erase the wrong drive. | Run `lsblk` in the Live ISO and make sure the target is not the USB installer, an external drive, or a disk with data you still need. The install script requires `ERASE <disk>` before continuing. |
-| P1 | `USER_NAME` | Affects the system user, Home Manager, autologin, password setup, and the home directory. A wrong value can cause login or path issues after installation. | Use the Linux username you plan to keep. Lowercase letters, digits, `-`, and `_` are the safest choices. |
-| P1 | `GPU` | Affects graphics drivers and desktop startup. A mismatch can lead to a black screen, failed desktop startup, or broken hardware acceleration. | The default targets an Nvidia dGPU. AMD and Intel graphics users should first change `gpu` in `nixos/host.nix`. |
-| P2 | `CPU` | Mostly affects microcode and minor hardware-specific settings. It is usually less severe than disk or GPU mistakes, but still worth setting correctly. | The default is `amd`. Intel users should change `cpu` in `nixos/host.nix`. |
-| P2 | `HOST_NAME` | Affects the flake configuration name, system hostname, and future rebuild commands. Mistakes are usually fixable, but they add avoidable troubleshooting. | Set it in `nixos/host.nix`; the NixOS and Home Manager modules will reuse it automatically. |
-
-### Where To Change Them
-- `DISK`: edit `disk` in `nixos/host.nix`.
-- `USER_NAME`: edit `userName` in `nixos/host.nix`.
-- `HOST_NAME`: edit `hostName` in `nixos/host.nix`.
-- `GPU`: edit `gpu` in `nixos/host.nix`; recommended values are `nvidia`, `amd`, or `intel`.
-- `CPU`: edit `cpu` in `nixos/host.nix`; recommended values are `amd` or `intel`.
-
-If you are unsure about any of these values, stop and verify first. NixOS generations are good at rollback, but they cannot restore a disk that was formatted by mistake.
+## ⚠️ Before You Install
+The install script partitions and formats the target disk before installing NixOS. NixOS generations are good at rollback, but they cannot restore a disk that was formatted by mistake. Before running the script, verify the target disk with `lsblk`.
 
 ### Network And Proxy Notes
 Depending on your region and network, installing NixOS and fetching GitHub / Nix cache resources may require a working proxy.
@@ -72,12 +47,26 @@ git clone https://github.com/huzch/nix-dotfiles.git
 cd nix-dotfiles
 ```
 
-2. Stop and check that the five items above are correct, especially `DISK`, `USER_NAME`, `HOST_NAME`, `GPU`, `CPU`, and any proxy settings you need.
-
-3. Run the installer. It prints an install summary and `lsblk` output, then requires `ERASE <disk>` before formatting the disk:
+2. Run the installer and follow the prompts for username, email, hostname, disk, CPU/GPU, and any proxy settings. It prints an install summary and `lsblk` output, then requires `ERASE <disk>` before formatting the disk:
 ```bash
 ./init.sh
 ```
+
+The script asks for these values and writes them back to `nixos/host.nix`. Square brackets `[]` show the current value; press Enter to keep it. Parentheses `()` show valid choices.
+```bash
+User name [huzch]:
+User email [huzch123@gmail.com]:
+Host name [space]:
+Target disk [/dev/nvme0n1]:
+CPU (amd/intel) [amd]:
+GPU (nvidia/amd/intel/none) [nvidia]:
+```
+
+| Priority | Item | What to verify |
+| --- | --- | --- |
+| P0 | `DISK` | This is the only option that directly affects data safety. Make sure the target is not the USB installer, an external drive, or a disk with data you still need. |
+| P1 | `GPU` / `USER_NAME` | GPU selection affects whether the desktop starts correctly. The username affects login and the home directory. |
+| P2 | `CPU` / `HOST_NAME` | CPU mainly affects microcode. Hostname affects the flake name and future rebuild commands. |
 
 After installation finishes, reboot. The script prepares `~/Documents/nix-dotfiles` and `~/Pictures/wallpapers` in the new system, so you do not need to clone them again manually.
 
@@ -95,7 +84,7 @@ After applying the system configuration and entering the desktop, press **`Alt +
 - **`flake.nix`**: Main entry point for the system configuration.
 - **`nixos/`**: System-level configuration.
   - `configuration.nix`: Core system settings, drivers, networking, fonts, and services.
-  - `host.nix`: Current machine settings for username, hostname, disk, CPU, and GPU type.
+  - `host.nix`: Current machine settings for username, email, hostname, disk, CPU, and GPU type.
   - `hardware-configuration.nix`: Hardware and filesystem configuration generated during installation. This is machine-specific.
   - `disko.nix`: Disk partitioning layout.
 - **`home/`**: Home Manager user-level configuration.

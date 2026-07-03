@@ -15,33 +15,8 @@
 
 ---
 
-## ⚠️ 安装前请先确认这五项
-这份配置可以自动分区、安装系统并写入用户配置。它省事，但也意味着有些选项一旦填错，影响会比较直接。建议先按下面的顺序确认，不要急着运行脚本。
-
-```bash
-USER_NAME=xxx
-HOST_NAME=xxx
-DISK=/dev/nvme0n1
-GPU=nvidia
-CPU=amd
-```
-
-| 优先级 | 配置项 | 风险 | 需要确认的事 |
-| --- | --- | --- | --- |
-| P0 | `DISK` | 会决定哪块磁盘被重新分区和格式化，填错会清空错误磁盘。 | 在 Live ISO 中运行 `lsblk`，确认目标盘不是 U 盘、移动硬盘或存有重要数据的硬盘。安装脚本会要求输入 `ERASE <disk>` 才继续。 |
-| P1 | `USER_NAME` | 影响系统用户、Home Manager、自动登录、密码设置和用户目录。填错通常会导致安装后登录或路径异常。 | 使用你准备长期使用的 Linux 用户名，建议只用小写字母、数字、`-` 或 `_`。 |
-| P1 | `GPU` | 影响图形驱动和桌面启动。显卡配置不匹配时，常见结果是黑屏、无法进入桌面或硬件加速异常。 | 当前默认偏向 Nvidia 独显；AMD/Intel 核显用户先修改 `nixos/host.nix` 中的 `gpu`。 |
-| P2 | `CPU` | 主要影响微码和少量硬件适配。填错通常不如磁盘和显卡严重，但不建议忽略。 | 当前默认是 `amd`；Intel 用户修改 `nixos/host.nix` 中的 `cpu`。 |
-| P2 | `HOST_NAME` | 影响 flake 配置名、系统主机名和后续 rebuild 命令。填错一般可修，但会增加排错成本。 | 在 `nixos/host.nix` 中设置后，相关 NixOS 和 Home Manager 配置会自动引用它。 |
-
-### 对应修改位置
-- `DISK`: 修改 `nixos/host.nix` 中的 `disk`。
-- `USER_NAME`: 修改 `nixos/host.nix` 中的 `userName`。
-- `HOST_NAME`: 修改 `nixos/host.nix` 中的 `hostName`。
-- `GPU`: 修改 `nixos/host.nix` 中的 `gpu`，可选值建议保持为 `nvidia`、`amd` 或 `intel`。
-- `CPU`: 修改 `nixos/host.nix` 中的 `cpu`，可选值建议保持为 `amd` 或 `intel`。
-
-如果你不确定某一项，先停在这里确认。NixOS 的回滚能力很强，但它不能恢复被格式化的错误磁盘。
+## ⚠️ 安装前需要知道的事
+这个安装脚本会自动分区、格式化磁盘并安装系统。NixOS 的回滚能力很强，但它不能恢复被格式化的错误磁盘。运行脚本前，请先确认目标磁盘；如果不确定，先停下来运行 `lsblk` 检查。
 
 ### 网络与代理配置 (Proxy Settings)
 由于国内网络原因，安装 NixOS 和拉取各种配置（如 GitHub 仓库、Nix 缓存）需要畅通的网络。我们将其分为两个阶段：
@@ -74,11 +49,27 @@ sudo -i
 git clone https://github.com/huzch/nix-dotfiles.git
 cd nix-dotfiles
 ```
-2. **停止并检查：** 确保你已经完成了上一节“五项确认”中的配置修改，尤其是用户名、主机名、磁盘、CPU/GPU 和代理设置。
-3. 确认无误后，执行一键安装脚本。脚本会打印安装摘要和 `lsblk` 输出，并要求你输入 `ERASE <disk>` 后才会格式化磁盘：
+2. 执行安装脚本，并按提示确认用户名、邮箱、主机名、磁盘、CPU/GPU 和代理设置。脚本会打印安装摘要和 `lsblk` 输出，并要求你输入 `ERASE <disk>` 后才会格式化磁盘：
 ```bash
 ./init.sh
 ```
+
+脚本会询问以下配置，并写回 `nixos/host.nix`。方括号 `[]` 中是当前值，直接回车会沿用；圆括号 `()` 中是可选值。
+```bash
+User name [huzch]:
+User email [huzch123@gmail.com]:
+Host name [space]:
+Target disk [/dev/nvme0n1]:
+CPU (amd/intel) [amd]:
+GPU (nvidia/amd/intel/none) [nvidia]:
+```
+
+| 优先级 | 配置项 | 需要确认的事 |
+| --- | --- | --- |
+| P0 | `DISK` | 这是唯一会直接影响数据安全的选项。确认目标盘不是 U 盘、移动硬盘或存有重要数据的硬盘。 |
+| P1 | `GPU` / `USER_NAME` | GPU 影响桌面能否正常启动；用户名影响登录和 home 目录。 |
+| P2 | `CPU` / `HOST_NAME` | CPU 主要影响微码；主机名影响 flake 名称和后续 rebuild 命令。 |
+
 等待安装完成并重启你的电脑。脚本会在新系统中准备好 `~/Documents/nix-dotfiles` 和 `~/Pictures/wallpapers`，首次启动后无需再手动 clone。
 
 安装脚本支持断点重试。每个关键步骤成功后会在 `/mnt/var/lib/nix-dotfiles-install-state` 写入状态；如果中途因为网络或其他原因失败，再次运行 `./init.sh` 会跳过已经完成的步骤。需要从头清空状态时使用：
@@ -96,7 +87,7 @@ cd nix-dotfiles
 - **`flake.nix`**: 整个系统的总入口点。存放了系统的所有依赖记录以及主机的基本配置声明。
 - **`nixos/`**: 存放**系统级**配置和底层设置。
   - `configuration.nix`: 系统核心组件、驱动、网络、字体等基础设置。
-  - `host.nix`: 当前机器的用户名、主机名、磁盘、CPU 和 GPU 类型。
+  - `host.nix`: 当前机器的用户名、邮箱、主机名、磁盘、CPU 和 GPU 类型。
   - `hardware-configuration.nix`: 安装时生成的用于描述你电脑硬盘挂载和硬件内核模块的文件（每台电脑都不一样，必须用你自己的）。
   - `disko.nix`: 定义硬盘的自动分区规则。
 - **`home/`**: 存放基于 `Home Manager` 的**用户级**环境配置（无需 root 即可作用于该用户）。
