@@ -30,16 +30,16 @@ CPU=amd
 | --- | --- | --- | --- |
 | P0 | `DISK` | Selects the disk that will be repartitioned and formatted. A wrong value can erase the wrong drive. | Run `lsblk` in the Live ISO and make sure the target is not the USB installer, an external drive, or a disk with data you still need. |
 | P1 | `USER_NAME` | Affects the system user, Home Manager, autologin, password setup, and the home directory. A wrong value can cause login or path issues after installation. | Use the Linux username you plan to keep. Lowercase letters, digits, `-`, and `_` are the safest choices. |
-| P1 | `GPU` | Affects graphics drivers and desktop startup. A mismatch can lead to a black screen, failed desktop startup, or broken hardware acceleration. | The default configuration targets an Nvidia dGPU. AMD and Intel graphics users should adjust the graphics-related options in `nixos/configuration.nix`. |
-| P2 | `CPU` | Mostly affects microcode and minor hardware-specific settings. It is usually less severe than disk or GPU mistakes, but still worth setting correctly. | Keep `hardware.cpu.amd.updateMicrocode` for AMD. Intel users should switch to the Intel microcode option. |
-| P2 | `HOST_NAME` | Affects the flake configuration name, system hostname, and future rebuild commands. Mistakes are usually fixable, but they add avoidable troubleshooting. | Keep the name consistent across `flake.nix`, `nixos/configuration.nix`, `init.sh`, and rebuild commands. |
+| P1 | `GPU` | Affects graphics drivers and desktop startup. A mismatch can lead to a black screen, failed desktop startup, or broken hardware acceleration. | The default targets an Nvidia dGPU. AMD and Intel graphics users should first change `gpu` in `nixos/host.nix`. |
+| P2 | `CPU` | Mostly affects microcode and minor hardware-specific settings. It is usually less severe than disk or GPU mistakes, but still worth setting correctly. | The default is `amd`. Intel users should change `cpu` in `nixos/host.nix`. |
+| P2 | `HOST_NAME` | Affects the flake configuration name, system hostname, and future rebuild commands. Mistakes are usually fixable, but they add avoidable troubleshooting. | Set it in `nixos/host.nix`; the NixOS and Home Manager modules will reuse it automatically. |
 
 ### Where To Change Them
 - `DISK`: edit `device` in `nixos/disko.nix`.
-- `USER_NAME`: replace `huzch` in `flake.nix`, `home/default.nix`, `nixos/configuration.nix`, and `init.sh`.
-- `HOST_NAME`: replace `space` in `flake.nix`, `nixos/configuration.nix`, `init.sh`, and rebuild commands.
-- `GPU`: adjust the Nvidia / AMD / Intel graphics settings in `nixos/configuration.nix`.
-- `CPU`: adjust the CPU microcode option in `nixos/configuration.nix`.
+- `USER_NAME`: edit `userName` in `nixos/host.nix`.
+- `HOST_NAME`: edit `hostName` in `nixos/host.nix`.
+- `GPU`: edit `gpu` in `nixos/host.nix`; recommended values are `nvidia`, `amd`, or `intel`.
+- `CPU`: edit `cpu` in `nixos/host.nix`; recommended values are `amd` or `intel`.
 
 If you are unsure about any of these values, stop and verify first. NixOS generations are good at rollback, but they cannot restore a disk that was formatted by mistake.
 
@@ -90,6 +90,7 @@ After applying the system configuration and entering the desktop, press **`Alt +
 - **`flake.nix`**: Main entry point for the system configuration.
 - **`nixos/`**: System-level configuration.
   - `configuration.nix`: Core system settings, drivers, networking, fonts, and services.
+  - `host.nix`: Current machine settings for username, hostname, CPU, and GPU type.
   - `hardware-configuration.nix`: Hardware and filesystem configuration generated during installation. This is machine-specific.
   - `disko.nix`: Disk partitioning layout.
 - **`home/`**: Home Manager user-level configuration.
@@ -117,7 +118,7 @@ cd ~/Documents/nix-dotfiles
 # Make sure new files are visible to the flake.
 git add .
 
-# Replace "space" with your flake configuration name if you changed it.
+# Replace "space" with hostName from nixos/host.nix if you changed it.
 sudo nixos-rebuild switch --flake .#space
 ```
 

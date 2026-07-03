@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, userName, ... }:
 
 let
   dotfiles = ../dotfiles;
@@ -23,8 +23,8 @@ in
     ./app.nix
   ];
 
-  home.username = "huzch";
-  home.homeDirectory = "/home/huzch";
+  home.username = userName;
+  home.homeDirectory = "/home/${userName}";
   home.stateVersion = "25.05";
 
   home.file.".local/share/fcitx5/rime/default.custom.yaml".source = "${dotfiles}/rime/default.custom.yaml";

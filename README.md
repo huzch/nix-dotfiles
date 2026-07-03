@@ -30,16 +30,16 @@ CPU=amd
 | --- | --- | --- | --- |
 | P0 | `DISK` | 会决定哪块磁盘被重新分区和格式化，填错会清空错误磁盘。 | 在 Live ISO 中运行 `lsblk`，确认目标盘不是 U 盘、移动硬盘或存有重要数据的硬盘。 |
 | P1 | `USER_NAME` | 影响系统用户、Home Manager、自动登录、密码设置和用户目录。填错通常会导致安装后登录或路径异常。 | 使用你准备长期使用的 Linux 用户名，建议只用小写字母、数字、`-` 或 `_`。 |
-| P1 | `GPU` | 影响图形驱动和桌面启动。显卡配置不匹配时，常见结果是黑屏、无法进入桌面或硬件加速异常。 | 当前默认偏向 Nvidia 独显；AMD/Intel 核显用户需要调整 `nixos/configuration.nix` 中的显卡相关配置。 |
-| P2 | `CPU` | 主要影响微码和少量硬件适配。填错通常不如磁盘和显卡严重，但不建议忽略。 | AMD 保留 `hardware.cpu.amd.updateMicrocode`；Intel 用户改为对应的 Intel 微码配置。 |
-| P2 | `HOST_NAME` | 影响 flake 配置名、系统主机名和后续 rebuild 命令。填错一般可修，但会增加排错成本。 | 保持 `flake.nix`、`nixos/configuration.nix`、`init.sh` 和维护命令中的名称一致。 |
+| P1 | `GPU` | 影响图形驱动和桌面启动。显卡配置不匹配时，常见结果是黑屏、无法进入桌面或硬件加速异常。 | 当前默认偏向 Nvidia 独显；AMD/Intel 核显用户先修改 `nixos/host.nix` 中的 `gpu`。 |
+| P2 | `CPU` | 主要影响微码和少量硬件适配。填错通常不如磁盘和显卡严重，但不建议忽略。 | 当前默认是 `amd`；Intel 用户修改 `nixos/host.nix` 中的 `cpu`。 |
+| P2 | `HOST_NAME` | 影响 flake 配置名、系统主机名和后续 rebuild 命令。填错一般可修，但会增加排错成本。 | 在 `nixos/host.nix` 中设置后，相关 NixOS 和 Home Manager 配置会自动引用它。 |
 
 ### 对应修改位置
 - `DISK`: 修改 `nixos/disko.nix` 中的 `device`。
-- `USER_NAME`: 修改 `flake.nix`、`home/default.nix`、`nixos/configuration.nix`、`init.sh` 中的 `huzch`。
-- `HOST_NAME`: 修改 `flake.nix`、`nixos/configuration.nix`、`init.sh` 和 rebuild 命令中的 `space`。
-- `GPU`: 按你的显卡调整 `nixos/configuration.nix` 中的 Nvidia / AMD / Intel 相关配置。
-- `CPU`: 按你的 CPU 调整 `nixos/configuration.nix` 中的微码配置。
+- `USER_NAME`: 修改 `nixos/host.nix` 中的 `userName`。
+- `HOST_NAME`: 修改 `nixos/host.nix` 中的 `hostName`。
+- `GPU`: 修改 `nixos/host.nix` 中的 `gpu`，可选值建议保持为 `nvidia`、`amd` 或 `intel`。
+- `CPU`: 修改 `nixos/host.nix` 中的 `cpu`，可选值建议保持为 `amd` 或 `intel`。
 
 如果你不确定某一项，先停在这里确认。NixOS 的回滚能力很强，但它不能恢复被格式化的错误磁盘。
 
@@ -74,7 +74,7 @@ sudo -i
 git clone https://github.com/huzch/nix-dotfiles.git
 cd nix-dotfiles
 ```
-2. **停止并检查：** 确保你已经完成了上一节【注意事项】中的**所有配置修改**，尤其是用户名、主机名、磁盘、CPU/GPU 和代理设置。
+2. **停止并检查：** 确保你已经完成了上一节“五项确认”中的配置修改，尤其是用户名、主机名、磁盘、CPU/GPU 和代理设置。
 3. 确认无误后，执行一键安装脚本：
 ```bash
 ./init.sh
@@ -91,6 +91,7 @@ cd nix-dotfiles
 - **`flake.nix`**: 整个系统的总入口点。存放了系统的所有依赖记录以及主机的基本配置声明。
 - **`nixos/`**: 存放**系统级**配置和底层设置。
   - `configuration.nix`: 系统核心组件、驱动、网络、字体等基础设置。
+  - `host.nix`: 当前机器的用户名、主机名、CPU 和 GPU 类型。
   - `hardware-configuration.nix`: 安装时生成的用于描述你电脑硬盘挂载和硬件内核模块的文件（每台电脑都不一样，必须用你自己的）。
   - `disko.nix`: 定义硬盘的自动分区规则。
 - **`home/`**: 存放基于 `Home Manager` 的**用户级**环境配置（无需 root 即可作用于该用户）。
@@ -118,7 +119,7 @@ cd ~/Documents/nix-dotfiles
 # 第 1 步：通知 Git 你做了改动（极其重要，如果不 git add，Nix 会报找不到文件的错）
 git add .
 
-# 第 2 步：重新构建并切换系统（记得把 "space" 换成你 flake.nix 中的配置名）
+# 第 2 步：重新构建并切换系统（把 "space" 换成 nixos/host.nix 中的 hostName）
 sudo nixos-rebuild switch --flake .#space
 ```
 

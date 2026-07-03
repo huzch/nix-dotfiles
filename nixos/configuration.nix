@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, userName, hostName, cpu, gpu, ... }:
 
 {
   imports = [
@@ -17,7 +17,7 @@
 
   # 网络
   networking = {
-    hostName = "space";
+    hostName = hostName;
     networkmanager.enable = true;
     # proxy.default = "http://192.168.8.236:7890";
     # proxy.default = "http://127.0.0.1:7897";
@@ -94,18 +94,21 @@
   services.power-profiles-daemon.enable = true;
 
   # CPU/GPU
-  services.xserver.videoDrivers = [ "nvidia" ]; # 加载显卡驱动
+  services.xserver.videoDrivers =
+    if gpu == "nvidia" then [ "nvidia" ]
+    else if gpu == "amd" then [ "amdgpu" ]
+    else [ ];
+
   hardware = {
     enableRedistributableFirmware = true;
     graphics = { # 图形加速库
       enable = true;
       enable32Bit = true;
-      extraPackages = with pkgs; [
-        nvidia-vaapi-driver
-      ];
+      extraPackages = lib.optionals (gpu == "nvidia") [ pkgs.nvidia-vaapi-driver ];
     };
-    cpu.amd.updateMicrocode = true; # AMD微码更新
-    nvidia = {
+    cpu.amd.updateMicrocode = cpu == "amd";
+    cpu.intel.updateMicrocode = cpu == "intel";
+    nvidia = lib.mkIf (gpu == "nvidia") {
       modesetting.enable = true;
       open = true; # RTX 50/Blackwell 需要开源内核模块
       nvidiaSettings = true;
@@ -124,8 +127,8 @@
 
   # 用户
   programs.zsh.enable = true;
-  services.getty.autologinUser = "huzch";
-  users.users.huzch = {
+  services.getty.autologinUser = userName;
+  users.users.${userName} = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "audio" "render" ];
     shell = pkgs.zsh;
@@ -145,6 +148,7 @@
       XDG_SESSION_TYPE = "wayland";
       # WLR_NO_HARDWARE_CURSORS = "1";
       # ELECTRON_OZONE_PLATFORM_HINT = "auto";
+    } // lib.optionalAttrs (gpu == "nvidia") {
       NVD_BACKEND = "direct";
       LIBVA_DRIVER_NAME = "nvidia";
       GBM_BACKEND = "nvidia-drm";

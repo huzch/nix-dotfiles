@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, userName, hostName, ... }:
 
 {
   home.packages = with pkgs; [
@@ -17,7 +17,7 @@
   programs.git = {
     enable = true;
     settings.user = {
-      name = "huzch";
+      name = userName;
       email = "huzch123@gmail.com";
     };
   };
@@ -41,7 +41,7 @@
       lg = "lazygit";
       ff = "fastfetch";
       vim = "nvim";
-      nrs = "sudo nixos-rebuild switch --flake ~/Documents/nix-dotfiles#space";
+      nrs = "sudo nixos-rebuild switch --flake ~/Documents/nix-dotfiles#${hostName}";
     };
 
     history = {
@@ -69,4 +69,3 @@
     '';
   };
 }
-

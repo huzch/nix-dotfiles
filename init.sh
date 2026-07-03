@@ -2,8 +2,8 @@
 
 set -e # 遇到错误立即停止
 
-USER_NAME="huzch"
-HOST_NAME="space"
+USER_NAME="$(sed -n 's/.*userName = "\(.*\)";.*/\1/p' nixos/host.nix)"
+HOST_NAME="$(sed -n 's/.*hostName = "\(.*\)";.*/\1/p' nixos/host.nix)"
 USER_HOME="/mnt/home/${USER_NAME}"
 USER_DOCS="${USER_HOME}/Documents"
 USER_PICTURES="${USER_HOME}/Pictures"

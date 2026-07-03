@@ -13,17 +13,23 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, disko, ... }: {
-    nixosConfigurations.space = nixpkgs.lib.nixosSystem {
+  outputs = { self, nixpkgs, home-manager, disko, ... }:
+  let
+    host = import ./nixos/host.nix;
+  in
+  {
+    nixosConfigurations.${host.hostName} = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      specialArgs = host;
       modules = [
         ./nixos/configuration.nix
         home-manager.nixosModules.home-manager {
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            users.huzch = import ./home;
+            users.${host.userName} = import ./home;
             backupFileExtension = "backup";
+            extraSpecialArgs = host;
           };
         }
         disko.nixosModules.disko
