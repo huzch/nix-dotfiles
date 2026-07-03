@@ -15,8 +15,7 @@ nix --experimental-features "nix-command flakes" run github:nix-community/disko/
 echo "==> 2. Generating hardware configuration..."
 nixos-generate-config --no-filesystems --root /mnt
 echo "==> 3. Preparing configuration files..."
-rm /mnt/etc/nixos/configuration.nix
-mv /mnt/etc/nixos/* ./nixos/
+cp /mnt/etc/nixos/hardware-configuration.nix ./nixos/
 cp -r flake.* ./nixos/ /mnt/etc/nixos/
 echo "==> 4. Installing NixOS..."
 nixos-install --flake /mnt/etc/nixos#space
