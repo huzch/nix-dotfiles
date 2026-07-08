@@ -47,6 +47,8 @@ Installing NixOS and fetching GitHub / Nix cache resources may require a proxy.
 
 ## Quick Start
 > Home Manager links `dotfiles/` into `~/.config/`. Most app config changes only need an app reload, not a system rebuild.
+>
+> The installer uses two stages: install the base `#<hostName>-install` system, then copy the repository and switch to the full `#<hostName>` configuration. This avoids Home Manager referencing dotfile paths before they exist.
 
 ### Install From A Live ISO
 1. Clone this repository:

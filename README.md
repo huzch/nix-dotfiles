@@ -47,6 +47,8 @@
 
 ## 🚀 快速开始 (Quick Start)
 > `dotfiles/` 通过 Home Manager 链接到 `~/.config/`。改应用配置通常不需要 rebuild，重启或 reload 对应程序即可。
+>
+> 安装脚本使用两阶段流程：先安装 `#<hostName>-install` 基础系统，再复制仓库并切换到完整 `#<hostName>` 配置。这样可以避免 Home Manager 在首装时引用还不存在的 dotfiles 路径。
 
 ### 在 U 盘系统 (Live ISO) 中安装
 1. 将配置仓库克隆到本地：
