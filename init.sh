@@ -227,7 +227,7 @@ copy_config() {
 }
 
 install_nixos() {
-  nixos-install --flake "/mnt/etc/nixos#${HOST_NAME}"
+  nixos-install --flake "/mnt/etc/nixos#${HOST_NAME}-install"
 }
 
 set_user_password() {
@@ -247,6 +247,10 @@ prepare_user_files() {
   nixos-enter --root /mnt -c "chown -R ${USER_NAME}:users /home/${USER_NAME}/Documents /home/${USER_NAME}/Pictures"
 }
 
+activate_full_system() {
+  nixos-enter --root /mnt -c "nixos-rebuild switch --flake /home/${USER_NAME}/Documents/nix-dotfiles#${HOST_NAME}"
+}
+
 read_host_config
 ask_host_config
 write_host_config
@@ -255,7 +259,8 @@ validate_config
 run_disko
 run_once "02-hardware" "2. Generating hardware configuration..." generate_hardware_config
 run_always "3. Preparing configuration files..." copy_config
-run_once "04-nixos-install" "4. Installing NixOS..." install_nixos
+run_once "04-nixos-install" "4. Installing base NixOS..." install_nixos
 run_once "05-user-files" "5. Preparing user files..." prepare_user_files
-run_always "6. Setting user password..." set_user_password
+run_once "06-full-system" "6. Activating full system configuration..." activate_full_system
+run_always "7. Setting user password..." set_user_password
 echo "==> Installation complete! Please remove the installation media and reboot."

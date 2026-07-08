@@ -16,24 +16,30 @@
   outputs = { self, nixpkgs, home-manager, disko, ... }:
   let
     host = import ./nixos/host.nix;
-  in
-  {
-    nixosConfigurations.${host.hostName} = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+    system = "x86_64-linux";
+    mkSystem = modules: nixpkgs.lib.nixosSystem {
+      inherit system;
       specialArgs = host;
       modules = [
         ./nixos/configuration.nix
-        home-manager.nixosModules.home-manager {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.${host.userName} = import ./home;
-            backupFileExtension = "backup";
-            extraSpecialArgs = host;
-          };
-        }
         disko.nixosModules.disko
-      ];
+      ] ++ modules;
     };
+    homeManagerModules = [
+      home-manager.nixosModules.home-manager
+      {
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          users.${host.userName} = import ./home;
+          backupFileExtension = "backup";
+          extraSpecialArgs = host;
+        };
+      }
+    ];
+  in
+  {
+    nixosConfigurations.${host.hostName} = mkSystem homeManagerModules;
+    nixosConfigurations."${host.hostName}-install" = mkSystem [ ];
   };
 }

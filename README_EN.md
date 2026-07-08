@@ -37,7 +37,9 @@ Depending on your region and network, installing NixOS and fetching GitHub / Nix
 ---
 
 ## Quick Start
-> Dotfiles are built directly into the Nix configuration. The install script also prepares `~/Documents/nix-dotfiles` and `~/Pictures/wallpapers` in the installed system.
+> Dotfiles are linked from `dotfiles/` into `~/.config/` by Home Manager. This keeps application configs independent and hot-editable: changes made in the repository can be picked up by the target program without rebuilding the whole system. The install script also prepares `~/Documents/nix-dotfiles` and `~/Pictures/wallpapers` in the installed system.
+>
+> The installer uses a two-stage flow automatically: it first installs a base system without Home Manager, then copies this repository into the new user's home directory, and finally activates the full configuration inside the installed system. You do not need to edit `flake.nix` or temporarily comment out Home Manager by hand.
 
 ### Install From A Live ISO
 1. Clone this repository:
@@ -51,6 +53,8 @@ cd nix-dotfiles
 ```bash
 ./init.sh
 ```
+
+Internally, the script installs `#<hostName>-install` first, prepares `~/Documents/nix-dotfiles` under `/mnt`, and then switches to the full `#<hostName>` configuration. This avoids evaluating Home Manager before the out-of-store dotfile link target exists at `~/Documents/nix-dotfiles/dotfiles`.
 
 The script asks for these values and writes them back to `nixos/host.nix`. Square brackets `[]` show the current value; press Enter to keep it. Parentheses `()` show valid choices.
 ```bash
@@ -68,7 +72,7 @@ GPU (nvidia/amd/intel/none) [nvidia]:
 | P1 | `GPU` / `USER_NAME` | GPU selection affects whether the desktop starts correctly. The username affects login and the home directory. |
 | P2 | `CPU` / `HOST_NAME` | CPU mainly affects microcode. Hostname affects the flake name and future rebuild commands. |
 
-After installation finishes, reboot. The script prepares `~/Documents/nix-dotfiles` and `~/Pictures/wallpapers` in the new system, so you do not need to clone them again manually.
+After installation finishes, reboot. The script prepares `~/Documents/nix-dotfiles` and `~/Pictures/wallpapers` in the new system and already applies the full system configuration, so you do not need to clone or rebuild manually on first boot.
 
 The install script supports checkpoint-based retries. After a key step succeeds, it writes state under `/mnt/var/lib/nix-dotfiles-install-state`; if the script fails later because of network or another issue, running `./init.sh` again skips completed steps. To clear checkpoint state and retry from scratch:
 ```bash
@@ -89,7 +93,7 @@ After applying the system configuration and entering the desktop, press **`Alt +
   - `disko.nix`: Disk partitioning layout.
 - **`home/`**: Home Manager user-level configuration.
   - `app.nix` / `shell.nix` / `desktop.nix`: Applications, shell settings, and desktop environment settings.
-- **`dotfiles/`**: Application and desktop dotfiles, such as Hyprland, Neovim, Waybar, Rofi, and related configs.
+- **`dotfiles/`**: Application and desktop dotfiles, such as Hyprland, Neovim, Waybar, Rofi, and related configs. Home Manager links these directories into `~/.config/` with out-of-store symlinks, which keeps them easy to edit and debug independently.
 
 ---
 
@@ -103,13 +107,16 @@ After installation, use the repository under `~/Documents/nix-dotfiles` as the s
 You can search for package names on [search.nixos.org](https://search.nixos.org/packages).
 
 ### Change Desktop Or App Config
-Do not edit files directly under `~/.config` as your source of truth. Edit the matching files under this repository's `dotfiles/` directory instead.
+Edit the matching files under this repository's `dotfiles/` directory. The related paths under `~/.config` are links back to this repository, so many application-level changes can be picked up by reloading or reopening the target program.
 
 ### Apply Changes
+If you only changed existing files under `dotfiles/`, you usually do not need to run `nixos-rebuild`.
+
+Run a rebuild when you change `.nix` files, update packages, adjust services, or add files that should be tracked by the Nix configuration:
 ```bash
 cd ~/Documents/nix-dotfiles
 
-# Make sure new files are visible to the flake.
+# Make sure new or renamed Nix-managed files are visible to the flake.
 git add .
 
 # Replace "space" with hostName from nixos/host.nix if you changed it.
