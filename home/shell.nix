@@ -6,6 +6,7 @@
     neovim
     lazygit
     fastfetch
+    btop
     go-musicfox
   ];
 
