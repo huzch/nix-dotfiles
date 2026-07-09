@@ -4,7 +4,7 @@
   home.packages = with pkgs; [
     brave
     steam
-    qq
+    # qq
     # wechat
     # typora
     # obs-studio

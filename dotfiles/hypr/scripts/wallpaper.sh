@@ -46,16 +46,16 @@ apply_wallpaper() {
             local monitor=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .name' 2>/dev/null)
             [ -z "$monitor" ] && monitor="*"
 
-            swww clear 000000
+            awww clear 000000
             mpvpaper -o "no-audio --loop-file=inf --panscan=1.0 --hwdec=auto" "$monitor" "$wp_path" &
             effect_msg="视频播放"
             ;;
         "gif")
-            swww img "$wp_path" --transition-type none --transition-fps 60
+            awww img "$wp_path" --transition-type none --transition-fps 60
             effect_msg="动画展示"
             ;;
         *)
-            swww img "$wp_path" --transition-type "$trans_type" --transition-fps 60
+            awww img "$wp_path" --transition-type "$trans_type" --transition-fps 60
             effect_msg="效果: $trans_type"
             ;;
     esac
