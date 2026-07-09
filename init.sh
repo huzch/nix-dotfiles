@@ -142,12 +142,12 @@ ask_host_config() {
   HOST_NAME="$(prompt_value "Host name" "${HOST_NAME}")"
   DISK="$(prompt_value "Target disk" "${DISK}")"
   CPU="$(prompt_value "CPU" "${CPU}" "amd/intel")"
-  GPU="$(prompt_value "GPU" "${GPU}" "nvidia/amd/intel/none")"
+  GPU="$(prompt_value "GPU" "${GPU}" "nvidia/amd/intel")"
 
   validate_user_name "${USER_NAME}"
   validate_host_name "${HOST_NAME}"
   validate_choice "${CPU}" "amd intel" "cpu"
-  validate_choice "${GPU}" "nvidia amd intel none" "gpu"
+  validate_choice "${GPU}" "nvidia amd intel" "gpu"
 }
 
 write_host_config() {

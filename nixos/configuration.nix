@@ -97,6 +97,7 @@
   services.xserver.videoDrivers =
     if gpu == "nvidia" then [ "nvidia" ]
     else if gpu == "amd" then [ "amdgpu" ]
+    else if gpu == "intel" then [ "modesetting" ]
     else [ ];
 
   hardware = {

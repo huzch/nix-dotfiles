@@ -69,7 +69,7 @@ User email [huzch123@gmail.com]:
 Host name [space]:
 Target disk [/dev/nvme0n1]:
 CPU (amd/intel) [amd]:
-GPU (nvidia/amd/intel/none) [nvidia]:
+GPU (nvidia/amd/intel) [nvidia]:
 ```
 
 | 优先级 | 配置项 | 需要确认的事 |
