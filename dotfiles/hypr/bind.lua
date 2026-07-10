@@ -1,53 +1,53 @@
 local terminal = "foot"
 local menu = "rofi -show drun"
 local scripts = "~/.config/hypr/scripts"
-local main_mod = "ALT"
+local mainMod = "ALT"
 
 local function bind(keys, dispatcher, flags)
   hl.bind(keys, dispatcher, flags or {})
 end
 
-bind(main_mod .. " + Return", hl.dsp.exec_cmd(terminal))
-bind(main_mod .. " + q", hl.dsp.window.close())
-bind(main_mod .. " + m", hl.dsp.exec_cmd("wlogout -b 5"))
-bind(main_mod .. " + space", hl.dsp.exec_cmd(menu))
-bind("SUPER + r", hl.dsp.exec_cmd("pkill waybar && waybar"))
-bind(main_mod .. " + w", hl.dsp.exec_cmd(scripts .. "/wallpaper.sh next"))
-bind(main_mod .. " + SHIFT + w", hl.dsp.exec_cmd(scripts .. "/wallpaper.sh select"))
-bind(main_mod .. " + n", hl.dsp.exec_cmd("swaync-client -t -sw"))
-bind(main_mod .. " + slash", hl.dsp.exec_cmd(scripts .. "/help.sh"))
-bind(main_mod .. " + v", hl.dsp.exec_cmd(scripts .. "/clipboard.sh"))
-bind(main_mod .. " + t", hl.dsp.exec_cmd(scripts .. "/toggle-float.sh"))
-bind(main_mod .. " + f", hl.dsp.window.fullscreen({ mode = "maximized" }))
-bind(main_mod .. " + SHIFT + f", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
-bind(main_mod .. " + p", hl.dsp.exec_cmd(scripts .. "/screenshot.sh full"))
-bind(main_mod .. " + SHIFT + p", hl.dsp.exec_cmd(scripts .. "/screenshot.sh area"))
-bind(main_mod .. " + r", hl.dsp.exec_cmd(scripts .. "/record.sh full"))
-bind(main_mod .. " + SHIFT + r", hl.dsp.exec_cmd(scripts .. "/record.sh area"))
+bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
+bind(mainMod .. " + Q", hl.dsp.window.close())
+bind(mainMod .. " + M", hl.dsp.exec_cmd("wlogout -b 5"))
+bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
+bind("SUPER + R", hl.dsp.exec_cmd("pkill waybar && waybar"))
+bind(mainMod .. " + W", hl.dsp.exec_cmd(scripts .. "/wallpaper.sh next"))
+bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(scripts .. "/wallpaper.sh select"))
+bind(mainMod .. " + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
+bind(mainMod .. " + SLASH", hl.dsp.exec_cmd(scripts .. "/help.sh"))
+bind(mainMod .. " + V", hl.dsp.exec_cmd(scripts .. "/clipboard.sh"))
+bind(mainMod .. " + T", hl.dsp.exec_cmd(scripts .. "/toggle-float.sh"))
+bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
+bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
+bind(mainMod .. " + P", hl.dsp.exec_cmd(scripts .. "/screenshot.sh full"))
+bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd(scripts .. "/screenshot.sh area"))
+bind(mainMod .. " + R", hl.dsp.exec_cmd(scripts .. "/record.sh full"))
+bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd(scripts .. "/record.sh area"))
 
-bind(main_mod .. " + h", hl.dsp.focus({ direction = "l" }))
-bind(main_mod .. " + j", hl.dsp.focus({ direction = "d" }))
-bind(main_mod .. " + k", hl.dsp.focus({ direction = "u" }))
-bind(main_mod .. " + l", hl.dsp.focus({ direction = "r" }))
+bind(mainMod .. " + H", hl.dsp.focus({ direction = "l" }))
+bind(mainMod .. " + J", hl.dsp.focus({ direction = "d" }))
+bind(mainMod .. " + K", hl.dsp.focus({ direction = "u" }))
+bind(mainMod .. " + L", hl.dsp.focus({ direction = "r" }))
 
-bind(main_mod .. " + SHIFT + h", hl.dsp.window.swap({ direction = "l" }))
-bind(main_mod .. " + SHIFT + j", hl.dsp.window.swap({ direction = "d" }))
-bind(main_mod .. " + SHIFT + k", hl.dsp.window.swap({ direction = "u" }))
-bind(main_mod .. " + SHIFT + l", hl.dsp.window.swap({ direction = "r" }))
+bind(mainMod .. " + SHIFT + H", hl.dsp.window.swap({ direction = "l" }))
+bind(mainMod .. " + SHIFT + J", hl.dsp.window.swap({ direction = "d" }))
+bind(mainMod .. " + SHIFT + K", hl.dsp.window.swap({ direction = "u" }))
+bind(mainMod .. " + SHIFT + L", hl.dsp.window.swap({ direction = "r" }))
 
 for i = 1, 10 do
   local key = i % 10
-  bind(main_mod .. " + " .. key, hl.dsp.focus({ workspace = i }))
-  bind(main_mod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+  bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
+  bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
 
-bind(main_mod .. " + Tab", hl.dsp.focus({ workspace = "previous" }))
-bind(main_mod .. " + S", hl.dsp.workspace.toggle_special("magic"))
-bind(main_mod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
-bind(main_mod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-bind(main_mod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
-bind(main_mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
-bind(main_mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+bind(mainMod .. " + TAB", hl.dsp.focus({ workspace = "previous" }))
+bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
+bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
+bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
+bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
 bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { locked = true, repeating = true })
